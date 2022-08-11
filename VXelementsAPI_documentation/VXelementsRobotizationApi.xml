@@ -1,0 +1,580 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        "VXelementsRobotizationApi"
+    </assembly>
+    <members>
+        <member name="M:VXelementsRobotizationApi.ApiManager.ImplementationProcess_Exited(System.Object,System.EventArgs)">
+Callback when communication has exited.
+</member>
+        <member name="M:VXelementsRobotizationApi.ApiManager.ClearConnection">
+Clears objects related to remoting to their initial value.
+</member>
+        <member name="M:VXelementsRobotizationApi.ApiManager.GetInstallationPath">
+Gets the installation path to VXelements software.
+</member>
+        <member name="F:VXelementsRobotizationApi.ApiManager.mpChannel">
+The IPC channel to the host application.
+</member>
+        <member name="F:VXelementsRobotizationApi.ApiManager.mpVXelements">
+Handle to the remote VXelement object.
+</member>
+        <member name="F:VXelementsRobotizationApi.ApiManager.spVxApiServerExeName">
+The executable name of the VXelements host application.
+</member>
+        <member name="F:VXelementsRobotizationApi.ApiManager.spVxApiProcessName">
+The process name of the VXelements host application.
+</member>
+        <member name="M:VXelementsRobotizationApi.ApiManager.Connect(System.Boolean)">
+            <summary>Connects to VXelements.</summary>
+            <param name="ShowTrayIcon">Places an icon in the tray bar (true) or not (false).</param>
+            <remarks>This method will connect to the running instance of VXelements. If there is no instance running, it will start a new one.</remarks>
+            <exception cref="T:VXelementsApi.VXelementsException">Thrown when an installation of VXelements was not found or when VXelements failed to connect to an existing instance.</exception>
+        </member>
+        <member name="M:VXelementsRobotizationApi.ApiManager.Connect">
+            <summary>Connects to VXelements.</summary>
+            <remarks>This method will connect to the running instance of VXelements. If there is no instance running, it will start a new one.</remarks>
+            <remarks>By default the icon will appear in the tray bar.</remarks>
+            <exception cref="T:VXelementsApi.VXelementsException">Thrown when an installation of VXelements was not found or when VXelements failed to connect to an existing instance.</exception>
+        </member>
+        <member name="P:VXelementsRobotizationApi.ApiManager.VXelements">
+            <summary>Gets the running instance of VXelements.</summary>
+            <value>An <see cref="T:VXelementsRobotizationApi.IVXelements" /> object representing the running instance of VXelements.</value>
+            <exception cref="T:VXelementsApi.VXelementsException">
+	Thrown when the object is accessed while there is no connection to the VXelements instance; 
+	a connection must be established before using the object. See <see cref="M:VXelementsRobotizationApi.ApiManager.Connect" /> to
+    connect to VXelements.
+</exception>
+        </member>
+        <member name="P:VXelementsRobotizationApi.ApiManager.IsConnected">
+            <summary>Gets the connection status of the ApiManager to VXelements.</summary>
+            <value>
+                <c>true</c> if the manager is connected to VXelements; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.ApiManager.IsInstalled">
+            <summary>Gets the installation status of VXelements on the computer.</summary>
+            <value>
+                <c>true</c> if VXelements is installed properly; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="E:VXelementsRobotizationApi.ApiManager.Disconnected">
+            <summary>Occurs when the connection to VXelements is lost or terminated.</summary>
+        </member>
+        <member name="T:VXelementsRobotizationApi.ApiManager.EventHandler">
+            <summary>Represents the method that will handle an event that is declared void and takes no parameters.</summary>
+        </member>
+        <member name="T:VXelementsRobotizationApi.ApiManager">
+            <summary>Manages the connection with the running instance of the API.</summary>
+        </member>
+        <member name="M:VXelementsRobotizationApi.IVXelements.LoadSession(System.String)">
+            <summary>Read the session from a file.</summary>
+            <param name="FileName">Is the file name for the session to be loaded or nullptr to get access 
+to the Open dialog.</param>
+        </member>
+        <member name="M:VXelementsRobotizationApi.IVXelements.SaveSession(System.String)">
+            <summary>Write the session in a file.</summary>
+            <param name="FileName">Is the file name for the session to be saved or nullptr to get access 
+to the Save dialog.</param>
+        </member>
+        <member name="M:VXelementsRobotizationApi.IVXelements.ResetProject">
+            <summary>Reset the current project.</summary>
+        </member>
+        <member name="M:VXelementsRobotizationApi.IVXelements.NewSession">
+            <summary>Create a new session.</summary>
+        </member>
+        <member name="P:VXelementsRobotizationApi.IVXelements.SilentMessages">
+            <summary>Gets or sets a value indicating if the messages prompts are be silent.</summary>
+            <value>
+                <c>true</c> if the messages prompts are be silent; otherwise, <c>false</c>. The default is <c>false</c>.</value>
+            <remarks>
+                <note>This property have a global effect on all VXelements messages and progress windows.</note>
+                <note>This property can be changed at any time during the program execution.</note>
+                <note type="warning">When <see cref="P:VXelementsRobotizationApi.IVXelements.SilentMessages" /> is set to <c>true</c>, important error messages can be hidden. It should be used carefully.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.IVXelements.Viewpoint">
+            <summary>Gets the handle the viewpoint manager.</summary>
+            <value>An handle to a <see cref="T:VXelementsRobotizationApi.Viewpoint.IViewpoint" /> object for interacting with the viewpoint.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.IVXelements.VXscanRobotization">
+            <summary>Gets the handle to the scanning module.</summary>
+            <value>An handle to a <see cref="T:VXelementsRobotizationApi.VXscan.IVXscanRobotization" /> object for interacting with the scanning module.</value>
+        </member>
+        <member name="T:VXelementsRobotizationApi.IVXelements">
+            <summary>Provides access to the various modules included in VXelements.</summary>
+        </member>
+        <member name="T:VXelementsRobotizationApi.NamespaceDoc">
+            <summary>The VXelementsRobotizationApi namespace provides a simple programming interface for interacting with VXelements and its modules.</summary>
+        </member>
+        <member name="M:VXelementsRobotizationApi.Viewpoint.IViewpoint.FitViewToScreen">
+            <summary>Adjusts the viewpoint to include all visible elements in the view.</summary>
+            <remarks>
+                <note>The position of the virtual camera will be changed but its orientation will be preserved.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.Viewpoint.IViewpoint.SetPredefinedView(VXelementsRobotizationApi.Viewpoint.PredefinedViews)">
+            <summary>Sets the viewpoint to one of the <see cref="T:VXelementsRobotizationApi.Viewpoint.PredefinedViews" />.</summary>
+        </member>
+        <member name="P:VXelementsRobotizationApi.Viewpoint.IViewpoint.IsViewpointLocked">
+            <summary>Gets or sets a value indicating whether the viewpoint is locked while scanning.</summary>
+            <value>
+                <c>true</c> if the viewpoint cannot be changed automatically by the software; otherwise, <c>false</c>. The default is <c>false</c>.</value>
+            <remarks>
+                <note>When scanning, the viewpoint is automatically adjusted to follow the scanner. When this property is set to <c>true</c>, the viewpoint will stay fixed and won't follow the scanner.</note>
+                <note>
+                    <see cref="P:VXelementsRobotizationApi.Viewpoint.IViewpoint.IsZoomLocked" /> and <see cref="P:VXelementsRobotizationApi.Viewpoint.IViewpoint.IsViewpointLocked" /> can not be both set to <c>true</c> at the same time. When one of them is set to <c>true</c>, the other will be automatically set to <c>false</c>.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.Viewpoint.IViewpoint.IsZoomLocked">
+            <summary>Gets or sets a value indicating whether the zoom is locked while scanning.</summary>
+            <value>
+                <c>true</c> if the zoom cannot be changed automatically by the software; otherwise, <c>false</c>. The default is <c>false</c>.</value>
+            <remarks>
+                <note>When scanning, the viewpoint is automatically adjusted to follow the scanner. When this property is set to <c>true</c>, the viewpoint will still changed, but the <see cref="P:VXelementsRobotizationApi.Viewpoint.IViewpoint.Distance" /> will stay fixed.</note>
+                <note>
+                    <see cref="P:VXelementsRobotizationApi.Viewpoint.IViewpoint.IsZoomLocked" /> and <see cref="P:VXelementsRobotizationApi.Viewpoint.IViewpoint.IsViewpointLocked" /> can not be both set to <c>true</c> at the same time. When one of them is set to <c>true</c>, the other will be automatically set to <c>false</c>.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.Viewpoint.IViewpoint.Distance">
+            <summary>Gets and sets the distance between the virtual camera and the observed point.</summary>
+            <remarks>
+                <note>A lower value will zoom the virtual camera towards the observed point; an higher value will zoom the virtual camera away from it.</note>
+                <note>The distance must be greater than or equal to zero.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.Viewpoint.IViewpoint.View">
+            <summary>Gets and sets the current view as a 3D pose.</summary>
+            <remarks>
+                <note>The 3D pose is a rigid-body transformation in homogeneous coordinates. The rotation part must be right-handed and orthonormal.</note>
+                <note>The X-axis of the rotation matrix is the vector pointing towards the top of the view.</note>
+                <note>The Y-axis of the rotation matrix is the vector pointing to the right of the view.</note>
+                <note>The Z-axis of the rotation matrix is the axis pointing towards the observed point.</note>
+                <note>
+		The translation vector is the position of the observed point. Use <see cref="P:VXelementsRobotizationApi.Viewpoint.IViewpoint.Distance" /> to adjust the distance 
+		of the virtual camera from the observed point.
+	</note>
+            </remarks>
+        </member>
+        <member name="T:VXelementsRobotizationApi.Viewpoint.IViewpoint">
+            <summary>Manages the viewpoint of the virtual camera.</summary>
+        </member>
+        <member name="T:VXelementsRobotizationApi.Viewpoint.PredefinedViews">
+            <summary>Specifies a list of available predefined views for fixing the viewpoint.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.Viewpoint.PredefinedViews.Isometric">
+            <summary>A standard isometric view.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.Viewpoint.PredefinedViews.ZMinus">
+            <summary>In this view, the Z-axis of the current reference system points away from the viewer.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.Viewpoint.PredefinedViews.ZPlus">
+            <summary>In this view, the Z-axis of the current reference system points towards the viewer.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.Viewpoint.PredefinedViews.YMinus">
+            <summary>In this view, the Y-axis of the current reference system points away from the viewer.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.Viewpoint.PredefinedViews.YPlus">
+            <summary>In this view, the Y-axis of the current reference system points towards the viewer.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.Viewpoint.PredefinedViews.XMinus">
+            <summary>In this view, the X-axis of the current reference system points away from the viewer.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.Viewpoint.PredefinedViews.XPlus">
+            <summary>In this view, the X-axis of the current reference system points towards the viewer.</summary>
+        </member>
+        <member name="T:VXelementsRobotizationApi.Viewpoint.NamespaceDoc">
+            <summary>
+The Viewpoint namespace includes various classes for interacting with the viewpoint 
+(i.e. the virtual camera of the 3D viewer) in VXelements.
+</summary>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.IVXscanRobotization.OptimizePositioningTargetModel">
+            <summary>Starts a positioning target model optimization process asynchronously.</summary>
+            <returns>true is the positioning target model can be optimized and the process started. When it returns
+	false, no <see cref="P:VXelementsApi.VXscan.IVXscan.ScanChangedEvent" /> is raised.</returns>
+            <remarks>
+                <para>Once the process is done a <see cref="P:VXelementsApi.VXscan.IVXscan.ScanChangedEvent" /> is raised.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.IVXscanRobotization.OptimizeSurface">
+            <summary>Starts a surface optimization process asynchronously.</summary>
+            <returns>true is the surface can be optimized and the process started. When it returns
+	false, no <see cref="P:VXelementsApi.VXscan.IVXscan.ScanChangedEvent" /> is raised.</returns>
+            <remarks>
+                <para>Once the process is done a <see cref="P:VXelementsApi.VXscan.IVXscan.ScanChangedEvent" /> is raised.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.IVXscanRobotization.ResetScan">
+            <summary>Resets the scanning process.</summary>
+            <remarks>
+                <para>This methods resets the scanning process to the initial state.</para>
+                <para>For scanners of the HandySCAN and Go!SCAN family, the method clears the scan model and discards the positioning targets.</para>
+                <para>For scanners of the MetraSCAN family, the method clears the scan model. Positioning target are kept, including targets not in the reference model.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.IVXscanRobotization.StopScan">
+            <summary>Stops the scanning process and updates the scanned model.</summary>
+            <remarks>
+                <para>This method stops the scanning process and updates the scanned model.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.IVXscanRobotization.StartScan">
+            <summary>Starts the scanning process.</summary>
+            <remarks>
+                <para>This method starts the scanning process.</para>
+                <note type="warning">The scanning process will start only if the <see cref="P:VXelementsApi.VXscan.IVXscan.ScanMode">scan mode</see> is supported and enabled; otherwise, a message box will warn the user.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.IVXscanRobotization.HideScanWindow">
+            <summary>Hides the scan window.</summary>
+            <remarks>
+                <para>This method hides the scanning window.</para>
+                <note>Hiding the scanning window will not stop the scanning process.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsPositioningTargetModelOptimizationSupported">
+            <summary>Gets a value indicating whether the positioning target model can be optimized or not.</summary>
+            <value>true is the positioning target model can be optimized, i.e. if calling <c>OptimizePositioningTargetModel()</c> will work.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsSurfaceOptimizationSupported">
+            <summary>Gets a value indicating whether the reconstructed surface can be optimized or not.</summary>
+            <value>true if the surface can be optimized, i.e. if calling <c>OptimizeSurface()</c> will work.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsScanPositioningTargetsOnlySupported">
+            <summary>Gets a value indicating whether the scan of the positioning targets only or not.</summary>
+            <value>true if the scan of the positioning targets only is supported.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.ScanPositioningTargetsOnly">
+            <summary>Sets/gets the scan positioning targets only mode value.</summary>
+            <value>true if the system will only scan the positioning targets, false if the system will scan the surface.</value>
+            <remarks>
+                <para>
+		Once this flag is set to true no surface will be scanned. This will 
+		remain as long as this flag will remain true. Setting it to false will
+		allow to come back to surface scan mode.
+	</para>
+                <para>
+		Notice that setting this flag to true has no effect if the current
+		sensor cannot scan the positioning targets only 
+		<see cref="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsScanPositioningTargetsOnlySupported" />.
+	</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.ScanPreview">
+            <summary>Shows/Hides the scan preview after issuing a <c>StartScan()</c>.</summary>
+            <value>true to show the scan preview, false otherwise.</value>
+            <remarks>
+                <para>
+		One must set this value to true in order to see the scan preview. Then <c>StartScan()</c>
+		must be called to start the scan and <c>StopScan()</c> to stop it.
+	</para>
+                <para>
+		Notice that when a MetraSCAN750-R is used, toggling this property will toggle the teach mode.
+	</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.DistanceRange">
+            <summary>Gets a data structure that contains the characteristics distances for the connected scanner.</summary>
+            <value>Structure <see cref="T:VXelementsRobotizationApi.VXscan.IDistanceRange" /> object representing the distances 
+for the connected scanner.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.StandoffDistance">
+            <summary>Gets the standoff distance, i.e. the current distance between the scanner and the surface of the object.</summary>
+            <value>A <c>System::Nullable</c> object that contains the standoff distance value if it is available or no value at all if this distance is not available.</value>
+            <remarks>
+                <para>
+		To use this property, first check if it contains a value: <c>if ( myVar.HasValue ){...}</c> then
+		use it if it is available: <c>myVar.Value ...;</c>.
+	</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.ScannerPose">
+            <summary>Gets a value indicating the nominal pose of the scanner in the current coordinate system.</summary>
+            <value>An <see cref="T:VXelementsApi.Types.IPose3d" /> object representing the pose of the connected scanner.</value>
+            <remarks>
+                <para>
+		This property returns the position and orientation of the latest valid observation of the connected scanner.
+	</para>
+                <para>
+		The nominal position is defined as the intersection of the optical axes of the cameras with the laser-cross system.
+		The nominal orientation is defined by the three bisectors between each camera and the laser-cross system from the nominal position.
+	</para>
+                <note>The property will be <c>null</c> when the feature is not supported or when the position is not available.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.LaserMode">
+            <summary>Gets or sets the laser mode of the scanner.</summary>
+            <value>One of the trigger modes supported by the VXscan module.</value>
+            <remarks>
+                <note type="warning">
+		 When <see cref="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsLaserModeSupported" /> is <c>false</c>, this property cannot be changed.
+	</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.SoftwareTrigger">
+            <summary>Gets or sets the software trigger of the scanner.</summary>
+            <value>
+                <c>true</c> if the software trigger of the scanner is active; otherwise, <c>false</c>. The default is <c>false</c>.</value>
+            <remarks>
+                <note type="warning">
+		 When <see cref="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsSoftwareTriggerSupported" /> is <c>false</c>, this property is <c>false</c> and cannot be changed.
+	</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.TriggerMode">
+            <summary>Gets or sets the trigger mode of the scanner.</summary>
+            <value>One of the trigger modes supported by the VXscan module.</value>
+            <remarks>
+                <note type="warning">
+		 When <see cref="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsSoftwareTriggerSupported" /> is <c>false</c>, this property cannot be changed.
+	</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.Calibration">
+            <summary>Gets the handle to the calibration module of the scanner.</summary>
+            <value>An handle to a <see cref="T:VXelementsRobotizationApi.VXscan.ICalibration" /> object for interacting with the calibration module of the scanner.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsLaserModeSupported">
+            <summary>Gets a value indicating whether the scanner laser mode can be changed by software.</summary>
+            <value>
+                <c>true</c> if the VXscan module can change the laser mode can by software; otherwise, <c>false</c>.</value>
+            <remarks>
+                <note>The value of this property depends on the capabilities of the connected scanner.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsSoftwareTriggerSupported">
+            <summary>Gets a value indicating whether the scanner can be triggered by software.</summary>
+            <value>
+                <c>true</c> if the VXscan module can trigger the scanner by software; otherwise, <c>false</c>.</value>
+            <remarks>
+                <note>The value of this property depends on the capabilities of the connected scanner.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.HighResolutionEnabled">
+            <summary>Gets or sets a value indicating if scanning should be done in high resolution.</summary>
+            <value>
+                <c>true</c> if high resolution scanning is active; otherwise, <c>false</c>. The default is <c>false</c>.</value>
+            <remarks>
+                <note type="warning">
+		 When <see cref="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsHighResolutionSupported" /> is set to <c>false</c>, this property is <c>false</c> and cannot be changed.
+	</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsHighResolutionSupported">
+            <summary>Gets a value indicating whether the VXscan module supports high resolution scanning with the connected scanner.</summary>
+            <value>
+                <c>true</c> if the VXscan module can scan a model in high resolution with the connected scanner; otherwise, <c>false</c>.</value>
+            <remarks>
+                <note>The value of this property depends on the capabilities of the connected scanner.</note>
+                <note type="warning">This feature is not supported on scanners using an hardware switch to toggle high resolution mode.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsScannerPoseAvailable">
+            <summary>Gets a value indicating the availability of the position of the scanner.</summary>
+            <value>
+                <c>true</c> if the position of the scanner is available; otherwise, <c>false</c>.</value>
+            <remarks>
+                <note>When <see cref="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsScannerPoseSupported" /> is false, this property is <c>false</c>.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.IsScannerPoseSupported">
+            <summary>Gets a value indicating whether the VXscan module can return the pose of the scanner.</summary>
+            <value>
+                <c>true</c> if the VXscan module can return the pose of the scanner; otherwise, <c>false</c>.</value>
+            <remarks>
+                <note>
+		The value of this property depends on the capabilities of the connected scanner. This property is 
+		<c>false</c> when a tracker is not required to scan.
+	</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.ScanDataReadyEvent">
+            <summary>Occurs when a scan data has been processed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is triggered when a scan line or frame has been processed. It is also called
+	when a surface optimization has completed.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IVXscanRobotization.ScannerPoseChangedEvent">
+            <summary>Occurs when the position of the scanner has changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is trigged when the position or the visibility of the scanner has changed.</para>
+                <note>This property is only triggered when the scanning process is started with a scanner that requires a tracker.</note>
+            </remarks>
+        </member>
+        <member name="T:VXelementsRobotizationApi.VXscan.IVXscanRobotization">
+            <summary>Manages the scanning process and dispatches events.</summary>
+        </member>
+        <member name="T:VXelementsRobotizationApi.VXscan.LaserMode">
+            <summary>Specifies the laser mode of the scanner.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.VXscan.LaserMode.SingleLine">
+            <summary>The single laser line mode.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.VXscan.LaserMode.MultiLine">
+            <summary>7 laser crosses mode.</summary>
+        </member>
+        <member name="T:VXelementsRobotizationApi.VXscan.TriggerMode">
+            <summary>Specifies the ways to trigger the scanner for acquiring data.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.VXscan.TriggerMode.Software">
+            <summary>Data acquisition is controlled by a software flag.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.VXscan.TriggerMode.Hardware">
+            <summary>Data acquisition is controlled by the physical trigger.</summary>
+        </member>
+        <member name="T:VXelementsRobotizationApi.VXscan.NamespaceDoc">
+            <summary>The VXscan namespace includes classes for interacting with the scanning module in VXelements.</summary>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IDistanceRange.TooFarDistance">
+            <summary>Get the maximum (farthest) distance between the scanner and the surface over which the scan is not possible
+and the scanner cannot be positioned.</summary>
+            <value>Maximum scan distance in mm.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IDistanceRange.InRangeFarDistance">
+            <summary>Maximum optimal scan distance determined by the optical characteristics of the scanner.</summary>
+            <value>Maximum optimal scan distance in mm.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IDistanceRange.InRangeCloseDistance">
+            <summary>Minimum optimal scan distance determined by the optical characteristics of the scanner.</summary>
+            <value>Minimum optimal scan distance in mm.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.IDistanceRange.TooCloseDistance">
+            <summary>Get the minimum (closest) distance between the scanner and the surface under which the scan is not possible
+and the scanner cannot be positioned.</summary>
+            <value>Minimum scan distance in mm.</value>
+        </member>
+        <member name="T:VXelementsRobotizationApi.VXscan.IDistanceRange">
+            <summary>The IDistanceRangeInterface provides information about scan distance range for the distance meter.</summary>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.ICalibration.SkipScannerPosition">
+            <summary>Skips current scanner position during calibration.</summary>
+            <remarks>
+                <para>This method is used when the robot arm cannot reach the specified position.
+	Thus it can be rejected from the calibration sequence.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.ICalibration.AcceptScannerPosition">
+            <summary>Accepts current scanner position during calibration.</summary>
+            <remarks>
+                <para>This method is used when the robot arm can reach the specified position.
+	Thus it can be kept in the calibration sequence.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.ICalibration.Cancel">
+            <summary>Cancels the calibration and closes the calibration window.</summary>
+            <remarks>
+                <para>This method stops the calibration process and closes the calibration window, discarding the computed calibration.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.ICalibration.Optimize">
+            <summary>Optimizes the calibration and closes the scanning window.</summary>
+            <remarks>
+                <para>This method optimizes the result of the calibration process, stops the calibration process and closes the calibration window, saving the computed calibration automatically.</para>
+                <note>Optimization is done only when data acquisition is completed. Otherwise, the calibration process will stop and the calibration window will be closed, discarding the data acquired for calibration.</note>
+                <note type="warning">This method has been deprecated.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.ICalibration.Start(System.Boolean,VXelementsRobotizationApi.VXscan.ICalibration.Trajectories)">
+            <summary>Starts the calibration process and shows the calibration window.</summary>
+            <param name="IntegrationMode">If true will run the integration calibration. If false, will run the execution calibration. The integration mode should be used along with the teach pendant to create the robot program while the execution mode should be used for in-line calibration.</param>
+            <param name="Trajectory">The scanner calibration trajectory to use during the calibration process.</param>
+            <remarks>
+                <para>This method starts the calibration process and shows the calibration window.</para>
+                <para>Data acquisition is started automatically.</para>
+                <note>Compatible only with the MetraSCAN 750-R scanner model.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsRobotizationApi.VXscan.ICalibration.Start">
+            <summary>Starts the calibration process and shows the calibration window.</summary>
+            <remarks>
+                <para>This method starts the calibration process and shows the calibration window.</para>
+                <para>Data acquisition is started automatically.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.ICalibration.CalibrationSuccess">
+            <summary>Gets a value indicating if the calibration was a success.</summary>
+            <remarks>
+                <para>This property is only valid inside <see cref="P:VXelementsRobotizationApi.VXscan.ICalibration.CalibrationStoppedEvent" />.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.ICalibration.CalibrationTargetPose">
+            <summary>Gets a value indicating the nominal pose of the calibration target in the current reference system.</summary>
+            <value>An <see cref="T:VXelementsApi.Types.IPose3d" /> object representing the pose of the calibration target.</value>
+            <remarks>
+                <para>This property returns the position and orientation of the latest valid observation of the calibration target.</para>
+                <note>The property will be <c>null</c> when the feature is not supported or when the position is not available.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.ICalibration.CalibrationStepCount">
+            <summary>Gets a value indicating the number of steps to complete the calibration process.</summary>
+            <value>An integer value representing the number of steps to complete the calibration process.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.ICalibration.CalibrationStep">
+            <summary>Gets a value indicating the current step of the calibration process.</summary>
+            <value>An integer value representing the current step of the calibration process.</value>
+            <remarks>
+                <note>
+		This property is <c>0</c> when the calibration is not started.
+	</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.ICalibration.IsCalibrationTargetPoseSupported">
+            <summary>Gets a value indicating whether the VXscan module can return the pose of the calibration target.</summary>
+            <value>
+                <c>true</c> if the VXscan module can return the pose of the calibration target; otherwise, <c>false</c>.</value>
+            <remarks>
+                <note>
+		The value of this property depends on the capabilities of the connected scanner. 
+		This property is <c>false</c> when a tracker is not required to scan.
+	</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.ICalibration.IsCalibrationStarted">
+            <summary>Gets a value indicating the status of the calibration process.</summary>
+            <value>
+                <c>true</c> if the calibration process is currently active; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.ICalibration.CalibrationTargetPoseChangedEvent">
+            <summary>Occurs when the position of the calibration target has changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is trigged when the position or the visibility of the calibration target has changed.</para>
+                <note>This property is only triggered when the calibration process is started with a scanner that requires a tracker.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.ICalibration.CalibrationStepDoneEvent">
+            <summary>Occurs when a step of the calibration process is completed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is triggered when a step of the calibration process is completed and when the analysis of the recording is done.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.ICalibration.CalibrationStoppedEvent">
+            <summary>Occurs when the calibration process is completed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is triggered when the calibration window is closed, whether the calibration has been optimized or canceled.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsRobotizationApi.VXscan.ICalibration.CalibrationStartedEvent">
+            <summary>Occurs when the calibration process is started.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>This event is triggered before the calibration window is shown.</remarks>
+        </member>
+        <member name="F:VXelementsRobotizationApi.VXscan.ICalibration.Trajectories.Default0Degrees">
+            <summary>Default calibration trajectory for the 0 degrees mounting option.</summary>
+        </member>
+        <member name="F:VXelementsRobotizationApi.VXscan.ICalibration.Trajectories.Default90Degrees">
+            <summary>Default calibration trajectory for the 90 degrees mounting option.</summary>
+        </member>
+        <member name="T:VXelementsRobotizationApi.VXscan.ICalibration.Trajectories">
+            <summary>List of supported scanner calibration trajectories.</summary>
+            <remarks>Compatible only with the MetraSCAN 750-R scanner model.</remarks>
+        </member>
+        <member name="T:VXelementsRobotizationApi.VXscan.ICalibration">
+            <summary>Manages the calibration process of the scanner.</summary>
+        </member>
+    </members>
+</doc>

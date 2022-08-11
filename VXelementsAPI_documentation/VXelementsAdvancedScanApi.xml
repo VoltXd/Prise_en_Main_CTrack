@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        "VXelementsAdvancedScanApi"
+    </assembly>
+    <members>
+        <member name="M:VXelementsAdvancedScanApi.ApiManager.ImplementationProcess_Exited(System.Object,System.EventArgs)">
+Callback when communication has exited.
+</member>
+        <member name="M:VXelementsAdvancedScanApi.ApiManager.ClearConnection">
+Clears objects related to remoting to their initial value.
+</member>
+        <member name="M:VXelementsAdvancedScanApi.ApiManager.GetInstallationPath">
+Gets the installation path to VXelements software.
+</member>
+        <member name="F:VXelementsAdvancedScanApi.ApiManager.mpChannel">
+The IPC channel to the host application.
+</member>
+        <member name="F:VXelementsAdvancedScanApi.ApiManager.mpVXelements">
+Handle to the remote VXelement object.
+</member>
+        <member name="F:VXelementsAdvancedScanApi.ApiManager.spVxApiServerExeName">
+The executable name of the VXelements host application.
+</member>
+        <member name="F:VXelementsAdvancedScanApi.ApiManager.spVxApiProcessName">
+The process name of the VXelements host application.
+</member>
+        <member name="M:VXelementsAdvancedScanApi.ApiManager.Connect(System.Boolean,System.Boolean,System.Boolean,System.String)">
+            <summary>Connects to VXelements.</summary>
+            <param name="ShowSplashScreen">Shows the splash screen (true) or does not show it (false).</param>
+            <param name="ShowTrayIcon">Places an icon in the tray bar (true) or not (false).</param>
+            <param name="ShowInTaskbar">Places a VXelementsApi button in the task bar (true) or not (false).</param>
+            <param name="SoftwareName">Replace 'VXelements' by the provided string as the software name. The software name is used in all forms and dialogs.</param>
+            <remarks>This method will connect to the running instance of VXelements. If there is no instance running, it will start a new one.</remarks>
+            <exception cref="T:VXelementsApi.VXelementsException">Thrown when an installation of VXelements was not found or when VXelements failed to connect to an existing instance.</exception>
+        </member>
+        <member name="M:VXelementsAdvancedScanApi.ApiManager.Connect(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>Connects to VXelements.</summary>
+            <param name="ShowSplashScreen">Shows the splash screen (true) or does not show it (false).</param>
+            <param name="ShowTrayIcon">Places an icon in the tray bar (true) or not (false).</param>
+            <param name="ShowInTaskbar">Places a VXelementsApi button in the task bar (true) or not (false).</param>
+            <remarks>This method will connect to the running instance of VXelements. If there is no instance running, it will start a new one.</remarks>
+            <exception cref="T:VXelementsApi.VXelementsException">Thrown when an installation of VXelements was not found or when VXelements failed to connect to an existing instance.</exception>
+        </member>
+        <member name="M:VXelementsAdvancedScanApi.ApiManager.Connect">
+            <summary>Connects to VXelements.</summary>
+            <remarks>
+This method will connect to the running instance of VXelements. If there is no instance running, it will start a new one.
+The VXelements splash screen will be displayed as well as the tray bar icon. An icon will also be added to the task bar.
+</remarks>
+            <exception cref="T:VXelementsApi.VXelementsException">Thrown when an installation of VXelements was not found or when VXelements failed to connect to an existing instance.</exception>
+        </member>
+        <member name="P:VXelementsAdvancedScanApi.ApiManager.VXelements">
+            <summary>Gets the running instance of VXelements.</summary>
+            <value>An <see cref="T:VXelementsAdvancedScanApi.IVXelements" /> object representing the running instance of VXelements.</value>
+            <exception cref="T:VXelementsApi.VXelementsException">
+	Thrown when the object is accessed while there is no connection to the VXelements instance; 
+	a connection must be established before using the object. See <see cref="M:VXelementsAdvancedScanApi.ApiManager.Connect" /> to
+    connect to VXelements.
+</exception>
+        </member>
+        <member name="P:VXelementsAdvancedScanApi.ApiManager.IsConnected">
+            <summary>Gets the connection status of the ApiManager to VXelements.</summary>
+            <value>
+                <c>true</c> if the manager is connected to VXelements; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsAdvancedScanApi.ApiManager.IsInstalled">
+            <summary>Gets the installation status of VXelements on the computer.</summary>
+            <value>
+                <c>true</c> if VXelements is installed properly; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="E:VXelementsAdvancedScanApi.ApiManager.Disconnected">
+            <summary>Occurs when the connection to VXelements is lost or terminated.</summary>
+        </member>
+        <member name="T:VXelementsAdvancedScanApi.ApiManager.EventHandler">
+            <summary>Represents the method that will handle an event that is declared void and takes no parameters.</summary>
+        </member>
+        <member name="T:VXelementsAdvancedScanApi.ApiManager">
+            <summary>Manages the connection with the running instance of the API.</summary>
+        </member>
+        <member name="P:VXelementsAdvancedScanApi.IVXelements.VXelementsAdvancedScan">
+            <summary>Gets the handle to the scanning module.</summary>
+            <value>An handle to a <see cref="T:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan" /> object for interacting with the scanning module.</value>
+        </member>
+        <member name="T:VXelementsAdvancedScanApi.IVXelements">
+            <summary>Provides access to the various modules included in VXelements.</summary>
+        </member>
+        <member name="T:VXelementsAdvancedScanApi.NamespaceDoc">
+            <summary>The VXelementsAdvancedScanApi namespace provides a simple programming interface for interacting with VXelements and its modules.</summary>
+        </member>
+        <member name="M:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.ShowCalibrationWindow">
+            <summary>Displays the VXelements sensor calibration window.</summary>
+            <remarks>
+                <para>This method will display the VXelements sensor calibration window then return immediately.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.ScanWindowSize">
+            <summary>Gets or sets the size of the VXelements scan window.</summary>
+            <value>A <see cref="T:System.Drawing.Size">Size</see> that represents the size of the VXelements scan window.</value>
+            <remarks>
+                <para>This property allows you to set both the height and the width (in pixels) of the VXelements scan window at the same time.</para>
+                <note>The maximum value of this property is limited by the resolution of the screen on which the VXelements scan window runs. The value
+    cannot be greater than 12 pixels over each screen dimension (horizontal + 12 and vertical + 12).</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.ScanWindowLocation">
+            <summary>Gets or sets the <see cref="T:System.Drawing.Point">Point</see> that represents the upper-left corner of the VXelements scan window in screen coordinates.</summary>
+            <value>The <see cref="T:System.Drawing.Point">Point</see> that represents the upper-left corner of the VXelements scan window in screen coordinates.</value>
+            <remarks>
+                <para>
+                    <see cref="T:System.Drawing.Point">Point</see> is a structure, which means that it is a value type. If you access a property in 
+    <see cref="T:System.Drawing.Point">Point</see>, a copy of the property is returned. Therefore, changing the <see cref="P:System.Drawing.Point.X">X</see> or 
+    <see cref="P:System.Drawing.Point.Y">Y</see> properties of the <see cref="T:System.Drawing.Point">Point</see> returned from the ScanWindowLocation 
+    property will not affect the <see cref="P:System.Windows.Forms.Control.Left">Left</see>, <see cref="P:System.Windows.Forms.Control.Right">Right</see>, 
+    <see cref="P:System.Windows.Forms.Control.Top">Top</see> or <see cref="P:System.Windows.Forms.Control.Bottom">Bottom</see> property values 
+    of the VXelements scan window.</para>
+                <para>To adjust these properties, set each property value individually, or set the ScanWindowLocation property 
+    with a new <see cref="T:System.Drawing.Point">Point</see>.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.ResetScan">
+            <summary>Resets the scanning process.</summary>
+            <remarks>
+                <para>This methods resets the scanning process to the initial state.</para>
+                <para>For scanners of the HandySCAN and Go!SCAN family, the method clears the scan model and discards the positioning targets.</para>
+                <para>For scanners of the MetraSCAN family, the method clears the scan model. Positioning target are kept, including targets not in the reference model.</para>
+                <note>The scan model can only be cleared when the scanning process is stopped, i.e. when <see cref="P:VXelementsApi.VXscan.IVXscan.IsScanningStarted" /> is false.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.StopScan">
+            <summary>Stops the scanning process and updates the scanned model.</summary>
+            <remarks>
+                <para>This method stops the scanning process and updates the scanned model.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.StartScan">
+            <summary>Starts the scanning process.</summary>
+            <remarks>
+                <para>This method starts the scanning process.</para>
+                <note type="warning">The scanning process will start only if the <see cref="P:VXelementsApi.VXscan.IVXscan.ScanMode">scan mode</see> is supported and enabled; otherwise, a message box will warn the user.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.Targets">
+            <summary>Returns the array of positioning targets.</summary>
+            <value>Array of <see cref="T:VXelementsApi.Types.IPositioningTargets">IPositioningTargets</see>.</value>
+            <remarks>
+                <note>This property can only be get.</note>
+                <note type="warning">This array can only be retrieved once the scan is done. The property will return nullptr when
+    called during scanning.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.IsScanWindowVisible">
+            <summary>Verifies if VXelements scan window is visible or hidden.</summary>
+            <value>Visibility status of the VXelements scan window.</value>
+            <remarks>
+                <note>This property can only be get. To set it use methods <see cref="M:VXelementsApi.VXscan.IVXscan.ShowScanWindow">
+    ShowScanWindow</see> or <see cref="M:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.HideScanWindow">HideScanWindow.</see></note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.HideScanWindow">
+            <summary>Hides the scan window.</summary>
+            <remarks>
+                <para>This method hides the scanning window.</para>
+                <note>Hiding the scanning window will not stop the scanning process.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan.ScanDataReadyEvent">
+            <summary>Occurs when a scan data has been processed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is triggered when a scan line or frame has been processed.</para>
+            </remarks>
+        </member>
+        <member name="T:VXelementsAdvancedScanApi.VXscan.IVXelementsAdvancedScan">
+            <summary>Manages the scanning process and dispatches events.</summary>
+        </member>
+        <member name="T:VXelementsAdvancedScanApi.VXscan.NamespaceDoc">
+            <summary>The VXscan namespace includes classes for interacting with the scanning module in VXelements.</summary>
+        </member>
+    </members>
+</doc>

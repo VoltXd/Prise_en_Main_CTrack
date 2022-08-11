@@ -1,0 +1,1854 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        "VXelementsApi"
+    </assembly>
+    <members>
+        <member name="M:VXelementsApi.ApiManager.ImplementationProcess_Exited(System.Object,System.EventArgs)">
+Callback when communication has exited.
+</member>
+        <member name="M:VXelementsApi.ApiManager.ClearConnection">
+Clears objects related to remoting to their initial value.
+</member>
+        <member name="M:VXelementsApi.ApiManager.GetInstallationPath">
+Gets the installation path to VXelements software.
+</member>
+        <member name="F:VXelementsApi.ApiManager.mpChannel">
+The IPC channel to the host application.
+</member>
+        <member name="F:VXelementsApi.ApiManager.mpVXelements">
+Handle to the remote VXelement object.
+</member>
+        <member name="F:VXelementsApi.ApiManager.spVxApiServerExeName">
+The executable name of the VXelements host application.
+</member>
+        <member name="F:VXelementsApi.ApiManager.spVxApiProcessName">
+The process name of the VXelements host application.
+</member>
+        <member name="M:VXelementsApi.ApiManager.Connect">
+            <summary>Connects to VXelements.</summary>
+            <remarks>This method will connect to the running instance of VXelements. If there is no instance running, it will start a new one.</remarks>
+            <exception cref="T:VXelementsApi.VXelementsException">Thrown when an installation of VXelements was not found or when VXelements failed to connect to an existing instance.</exception>
+        </member>
+        <member name="P:VXelementsApi.ApiManager.VXelements">
+            <summary>Gets the running instance of VXelements.</summary>
+            <value>An <see cref="T:VXelementsApi.IVXelements" /> object representing the running instance of VXelements.</value>
+            <exception cref="T:VXelementsApi.VXelementsException">
+	Thrown when the object is accessed while there is no connection to the VXelements instance; 
+	a connection must be established before using the object. See <see cref="M:VXelementsApi.ApiManager.Connect" /> to
+    connect to VXelements.
+</exception>
+        </member>
+        <member name="P:VXelementsApi.ApiManager.IsConnected">
+            <summary>Gets the connection status of the ApiManager to VXelements.</summary>
+            <value>
+                <c>true</c> if the manager is connected to VXelements; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.ApiManager.IsInstalled">
+            <summary>Gets the installation status of VXelements on the computer.</summary>
+            <value>
+                <c>true</c> if VXelements is installed properly; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="E:VXelementsApi.ApiManager.Disconnected">
+            <summary>Occurs when the connection to VXelements is lost or terminated.</summary>
+        </member>
+        <member name="T:VXelementsApi.ApiManager.EventHandler">
+            <summary>Represents the method that will handle an event that is declared void and takes no parameters.</summary>
+        </member>
+        <member name="T:VXelementsApi.ApiManager">
+            <summary>Manages the connection with the running instance of the API.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXelementsException.mpMessage">
+The message linked to the exception.
+</member>
+        <member name="F:VXelementsApi.VXelementsException.mCause">
+Which condition triggered the exception.
+</member>
+        <member name="P:VXelementsApi.VXelementsException.ExceptionCause">
+            <summary>A code that describes the current exception.</summary>
+            <value>The <see cref="T:VXelementsApi.VXelementsException.Cause" /> code that explains the reason for the exception.</value>
+        </member>
+        <member name="P:VXelementsApi.VXelementsException.Message">
+            <summary>A message that describes the current exception.</summary>
+            <value>The error message that explains the reason for the exception.</value>
+        </member>
+        <member name="M:VXelementsApi.VXelementsException.#ctor(VXelementsApi.VXelementsException.Cause)">
+            <summary>Initializes a new instance of a <see cref="T:VXelementsApi.VXelementsException" />.</summary>
+            <param name="Cause">The cause of the exception.</param>
+        </member>
+        <member name="F:VXelementsApi.VXelementsException.Cause.ConnectionFailed">
+            <summary>Failed to connect to VXelements.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXelementsException.Cause.ClientVersionIncompatible">
+            <summary>The version of the client API version is incompatible with the API version of VXelement.</summary>
+            <remarks>This exception is thrown when the client API version is higher than the API version of the running instance of VXelement.</remarks>
+        </member>
+        <member name="F:VXelementsApi.VXelementsException.Cause.NotConnected">
+            <summary>A module was accessed while the manager was not connected VXelements.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXelementsException.Cause.NotStarted">
+            <summary>VXelements could not be started.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXelementsException.Cause.NotInstalled">
+            <summary>An installation of VXelements was not found on the computer.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXelementsException.Cause">
+            <summary>Specifies the cause of the <see cref="T:VXelementsApi.VXelementsException" /> exception.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXelementsException">
+            <summary>The exception that is thrown when the <see cref="T:VXelementsApi.ApiManager" /> encounters a situation where it cannot continue.</summary>
+        </member>
+        <member name="M:VXelementsApi.IVXelements.DeleteCalibrationJournal">
+            <summary>Delete (reset) calibration journal.</summary>
+            <remarks>
+                <note>This method will delete all data in the calibration journal.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.IVXelements.ExportCalibrationJournal(System.String)">
+            <summary>Save calibration journal.</summary>
+            <param name="FileName">The name of the file to export the journal. If <c>null</c>, a <see cref="T:System.Windows.Forms.SaveFileDialog" /> dialog box will be shown.</param>
+            <remarks>
+                <note>Exporting the journal will export all entries including those previous to the current session. </note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.IVXelements.GetGuiProperty(VXelementsApi.IVXelements.GuiProperty)">
+            <summary>Gets a VXelements viewer graphical user interface (GUI) property.</summary>
+            <param name="Name">The property one wants to get.</param>
+            <returns>The value of the property one wants to get.</returns>
+            <remarks>The properties are: menu, tool bar, status strip, left (scan/session properties) panel, right (device properties) panel, border type and top most status. 
+    <para>Menu, tool bar, status strip and left expando and right panel are on (Value=1) or off (Value=0).</para><para>Border is None (Value=0), FixedSingle (Value=1), FixedDialog (Value=2), FixedToolWindow (Value=3), Fixed3D (Value=4), Sizable (Value=5) or SizableToolWindow (Value=6).</para><para>According to top most value, the window is normal (Value=0) or top most (Value=1).</para></remarks>
+        </member>
+        <member name="M:VXelementsApi.IVXelements.SetGuiProperty(VXelementsApi.IVXelements.GuiProperty,System.Int32)">
+            <summary>Sets a VXelements viewer graphical user interface (GUI) property.</summary>
+            <param name="Name">The property one wants to set.</param>
+            <param name="Value">This is the value of the property (as <see cref="T:VXelementsApi.IVXelements.GuiProperty" />) one wants to set.</param>
+            <remarks>The properties are: menu, tool bar, status strip, left (scan/session properties) panel, right (device properties) panel, border type and top most status. 
+    <para>Menu, tool bar, status strip and left expando and right panel are toggled on (Value=1) or off (Value=0).</para><para>Border is set to None (Value=0), FixedSingle (Value=1), FixedDialog (Value=2), FixedToolWindow (Value=3), Fixed3D (Value=4), Sizable (Value=5) or SizableToolWindow (Value=6).</para><para>Top most will set the window normal (Value=0) or top most (Value=1).</para><note>GUI elements will be toggled on for any non 0 values.</note><note>The border will not change if an invalid value is given.</note></remarks>
+        </member>
+        <member name="M:VXelementsApi.IVXelements.Exit">
+            <summary>Exits VXelements.</summary>
+            <remarks>
+                <para>This method will terminate the running instance of VXelements, disconnecting any client application that is connected.</para>
+                <note type="warning">This method is meant for system integrators. Since it can disrupt the operation of other plug-ins, it <em>must not</em> be used by plug-in developers.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.CodedTargets">
+            <summary>Gets an array of the coded targets in the project.</summary>
+            <returns>An array of <see cref="T:VXelementsApi.VXshot.ICodedTarget" /> objects representing the coded targets in the project.</returns>
+            <remarks>
+                <note type="warning">The property will return nullptr if the project is invalid.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.Targets">
+            <summary>Gets an array of the positioning targets in the project.</summary>
+            <returns>An array of <see cref="T:VXelementsApi.Types.IPositioningTargets" /> objects representing the positioning targets in the project.</returns>
+            <remarks>
+                <note type="warning">The property will return nullptr if the project is invalid.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.IVXelements.OpenPositioningTargets(System.String)">
+            <summary>Loads a model with positioning targets from a file.</summary>
+            <param name="FileName">The name of the file with the positioning targets model. If <c>null</c>, a <see cref="T:System.Windows.Forms.SaveFileDialog" /> dialog box will be shown.</param>
+            <remarks>
+                <note>Loading a set of positioning targets will reset the current project, including the scan or any tracked entity.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.ViewerNavigationMode">
+            <summary>Gets or sets the navigation mode of the 3D viewer.</summary>
+            <value>The current navigation mode of the 3D viewer.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.TypesFactory">
+            <summary>Gets the handle to the types factory.</summary>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.VXremote">
+            <summary>Gets the handle to the VXremote module.</summary>
+            <value>A handle to a <see cref="T:VXelementsApi.VXremote.IVXremote" /> object for interfacing with the VXremote module.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.VXtrack">
+            <summary>Gets the handle to the tracking module.</summary>
+            <value>An handle to a <see cref="T:VXelementsApi.VXtrack.IVXtrack" /> object for interacting with the tracking module.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.VXshot">
+            <summary>Gets the handle to the photogrammetry module.</summary>
+            <value>An handle to a <see cref="T:VXelementsApi.VXshot.IVXshot" /> object for interacting with the photogrammetry module.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.VXprobe">
+            <summary>Gets the handle to the probing module.</summary>
+            <value>An handle to a <see cref="T:VXelementsApi.VXprobe.IVXprobe" /> object for interacting with the probing module.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.VXscan">
+            <summary>Gets the handle to the scanning module.</summary>
+            <value>An handle to a <see cref="T:VXelementsApi.VXscan.IVXscan" /> object for interacting with the scanning module.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.Tracker">
+            <summary>Gets the handle to the tracker module.</summary>
+            <value>An handle to a <see cref="T:VXelementsApi.Tracker.ITracker" /> object for interacting with the tracker (C-Track or C-Link Network) module.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.IsTrackingSupported">
+            <summary>Gets the availability of the tracking module in the current session.</summary>
+            <value>
+                <c>true</c> if tracking is supported in the current session; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.IsShootingSupported">
+            <summary>Gets the availability of the photogrammetry shooting module in the current session.</summary>
+            <value>
+                <c>true</c> if photogrammetry is supported in the current session; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.IsProbingSupported">
+            <summary>Gets the availability of the probing module in the current session.</summary>
+            <value>
+                <c>true</c> if probing is supported in the current session; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.IsScanningSupported">
+            <summary>Gets the availability of the scanning module in the current session.</summary>
+            <value>
+                <c>true</c> if scanning is supported in the current session; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.ExecutingApiVersion">
+            <summary>Gets the version number of the API from the running instance of VXelement.</summary>
+            <value>An integer value representing the API version of VXelements.</value>
+            <remarks>
+                <para>The executing version number is the build number of the running instance of VXelements.</para>
+                <note>The API is backward compatible. It is not necessary to recompile the client application when newer versions of VXelements and its API are released. Therefore, this version number can be different from <see cref="P:VXelementsApi.IVXelements.ApiVersion" />.</note>
+                <note type="warning">When connecting to the API, this number must be higher than or equal to <see cref="P:VXelementsApi.IVXelements.ApiVersion" />; otherwise, a <see cref="T:VXelementsApi.VXelementsException" /> exception will be thrown.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.IVXelements.ApiVersion">
+            <summary>Gets the version number of the API from the client interface library.</summary>
+            <value>An integer value representing the version of the API.</value>
+            <remarks>
+                <para>The version number of the API is the build number tagged to the client interface library (<c>VXelementsApi.dll</c>). This number corresponds to the build number of a given release of VXelements.</para>
+                <note>The API is backward compatible. It is not necessary to recompile the client application when newer versions of VXelements and its API are released. Therefore, this version can be different from <see cref="P:VXelementsApi.IVXelements.ExecutingApiVersion" />.</note>
+                <note type="warning">When connecting to the API, this number must be lower than or equal to <see cref="P:VXelementsApi.IVXelements.ExecutingApiVersion" />; otherwise, a <see cref="T:VXelementsApi.VXelementsException" /> exception will be thrown.</note>
+            </remarks>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.GuiProperty.TopMost">
+            <summary>Top Most status of the viewer: 0=normal, 1=top most.</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.GuiProperty.Border">
+            <summary>Border type for the viewer. Value: 0=None, 1=FixedSingle, 2=FixedDialog, 3=FixedToolWindow, 4=Fixed3D, 5=Sizable, 6=SizableToolWindow.</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.GuiProperty.ToolBar">
+            <summary>Display status of the tool bar in the viewer: 0=hidden, 1=displayed.</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.GuiProperty.MenuStrip">
+            <summary>Display status of the menu strip in the viewer: 0=hidden, 1=displayed.</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.GuiProperty.StatusStrip">
+            <summary>Display status of the status strip in the viewer: 0=hidden, 1=displayed.</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.GuiProperty.RightPanel">
+            <summary>Display status of the right panel in the viewer (device properties): 0=hidden, 1=displayed.</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.GuiProperty.LeftPanel">
+            <summary>Display status of the left panel in the viewer (scan/session properties): 0=hidden, 1=displayed.</summary>
+        </member>
+        <member name="T:VXelementsApi.IVXelements.GuiProperty">
+            <summary>
+Properties for the different elements of the VXelements GUI.
+</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.NavigationMode.Catia">
+            <summary>Deprecated. This navigation mode is mapped to VXelements.</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.NavigationMode.PolyWorks">
+            <summary>The navigation mode in PolyWorks.</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.NavigationMode.Rapidform">
+            <summary>The second possible navigation mode in Geomagic.</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.NavigationMode.Geomagic">
+            <summary>The first possible navigation mode in Geomagic.</summary>
+        </member>
+        <member name="F:VXelementsApi.IVXelements.NavigationMode.VXelements">
+            <summary>The navigation mode in VXelements.</summary>
+        </member>
+        <member name="T:VXelementsApi.IVXelements.NavigationMode">
+            <summary>Specifies navigation modes for the 3D viewer.</summary>
+            <remarks>
+    A navigation mode will configure the keyboard and mouse controls in the 3D viewer to match the controls 
+    found in many popular CAD software.
+</remarks>
+        </member>
+        <member name="T:VXelementsApi.IVXelements">
+            <summary>Provides access to the various modules included in VXelements.</summary>
+        </member>
+        <member name="T:VXelementsApi.NamespaceDoc">
+            <summary>The VXelementsApi namespace provides a simple programming interface for interacting with VXelements and its modules.</summary>
+        </member>
+        <member name="P:VXelementsApi.VXremote.IVXremote.IsActive">
+            <summary>Gets a value indicating if the VXremote mode is active.</summary>
+            <value>
+                <c>true</c> if the VXremote mode is currently active; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXremote.IVXremote.IsAvailable">
+            <summary>Gets a value indicating if the VXremote mode is available.</summary>
+            <value>
+                <c>true</c> if the VXremote mode is currently avalaible; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:VXelementsApi.VXremote.IVXremote.Disable">
+            <summary>Disables (deactivates) the VXremote mode.</summary>
+            <remarks>
+                <para>Nothing will be perform if the mode is not available or is already disabled.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.VXremote.IVXremote.Enable">
+            <summary>Enables (activates) the VXremote mode.</summary>
+            <remarks>
+                <para>Nothing will be perform if the mode is not available or is already enabled.</para>
+            </remarks>
+        </member>
+        <member name="T:VXelementsApi.VXremote.IVXremote">
+            <summary>Manages communications with the remote device (tablet) via VXremote.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXremote.NamespaceDoc">
+            <summary>The VXremote namespace includes class for working with the remote device.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.StopTracking">
+            <summary>Stops the tracking process.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.StartTracking(VXelementsApi.VXtrack.ITrackingSequence)">
+            <summary>Starts the tracking process using a given tracking sequence.</summary>
+            <param name="TrackingSequence">An <see cref="T:VXelementsApi.VXtrack.ITrackingSequence" /> object representing sequence to be used to start the tracking process.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.StartTracking">
+            <summary>Starts the tracking process using the current tracking sequence.</summary>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.ReferencingMode">
+            <summary>Gets or sets the referencing mode of the tracking system. Deprecated.</summary>
+            <value>One of the supported <see cref="P:VXelementsApi.VXtrack.IVXtrack.ReferencingMode">referencing mode</see>.</value>
+            <remarks>
+                <note type="warning">This method has been deprecated. Use <see cref="T:VXelementsApi.Tracker.ReferencingMode" />.</note>
+            </remarks>
+            <seealso cref="T:VXelementsApi.Tracker.ReferencingMode" />
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.HideProjectionViewForm">
+            <summary>Hides the form containing the projection view.</summary>
+            <remarks>This view provides three separate graphs corresponding to the models or targets position projected on the XY, XZ and YZ planes. Note: X, Y and Z axes are respectively identified by color red, green and blue.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.ShowProjectionViewForm">
+            <summary>Shows a form containing the projection view.</summary>
+            <remarks>This view provides three separate graphs corresponding to the models or targets position projected on the XY, XZ and YZ planes. Note: X, Y and Z axes are respectively identified by color red, green and blue.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.HideTableViewForm">
+            <summary>Hides the form containing the table view.</summary>
+            <remarks>This view provides a table that lists the position for all selected models and targets which were recorded since the beginning of the tracking process. Each time tracking data is acquired, a new row is added in this table.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.ShowTableViewForm">
+            <summary>Shows a form containing the table view.</summary>
+            <remarks>This view provides a table that lists the position for all selected models and targets which were recorded since the beginning of the tracking process. Each time tracking data is acquired, a new row is added in this table.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.HideGraphicsViewForm">
+            <summary>Hides the form containing the graph view.</summary>
+            <remarks>The graph view displays a graph of recorded measurements in function of the time elapsed since the beginning of the tracking process. One can visualize the movement of a model in term of its translation and rotation, as long as the movement of an individual positionning target in term of its translation.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.ShowGraphicsViewForm">
+            <summary>Shows a form containing the graph view.</summary>
+            <remarks>The graph view displays a graph of recorded measurements in function of the time elapsed since the beginning of the tracking process. One can visualize the movement of a model in term of its translation and rotation, as long as the movement of an individual positionning target in term of its translation.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.HideModelsStatusForm">
+            <summary>Hides models status window.</summary>
+            <remarks>The models status window displays in real-time the pose (translation and rotation) of tracking models. It can also display to position (X,Y,Z) of individual positionning targets used to create a specific model.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.ShowModelsStatusForm">
+            <summary>Shows models status window.</summary>
+            <remarks>The models status window displays in real-time the pose (translation and rotation) of tracking models. It can also display to position (X,Y,Z) of individual positionning targets used to create a specific model.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.HideTrackingParametersForm">
+            <summary>Hides the tracking parameters form.</summary>
+            <remarks>The tracking parameters form allows to modify the trigger type and polarity, acquisition rate, filtering parameters, sampling rate and to limit the tracking sequence length.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.ShowTrackingParametersForm">
+            <summary>Shows the tracking parameters form.</summary>
+            <remarks>The tracking parameters form allows to modify the trigger type and polarity, acquisition rate, filtering parameters, sampling rate and to limit the tracking sequence length.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.RemoveAllSequences">
+            <summary>Removes all sequences from the project.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.RemoveSequence(VXelementsApi.VXtrack.ITrackingSequence)">
+            <summary>Removes a given tracking sequence from the project.</summary>
+            <param name="TrackingSequenceToRemove">An <see cref="T:VXelementsApi.VXtrack.ITrackingSequence" /> object representing the sequence to be removed.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.CopySequence(VXelementsApi.VXtrack.ITrackingSequence)">
+            <summary>Copies an existing tracking sequence into a new sequence.</summary>
+            <param name="TrackingSequenceToCopyFrom">An <see cref="T:VXelementsApi.VXtrack.ITrackingSequence" /> object representing the sequence to be copied.</param>
+            <returns>An <see cref="T:VXelementsApi.VXtrack.ITrackingSequence" /> object representing the newly created sequence.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.CreateSequence(VXelementsApi.VXtrack.ITrackingEntity[])">
+            <summary>Create a new tracking sequence using specific tracking models.</summary>
+            <param name="TrackingEntitiesArray">An array of <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> containing the models to be used to create the sequence.</param>
+            <returns>An <see cref="T:VXelementsApi.VXtrack.ITrackingSequence" /> object representing the newly created sequence.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.CreateSequence">
+            <summary>Creates a new tracking sequence with all tracking models.</summary>
+            <returns>An <see cref="T:VXelementsApi.VXtrack.ITrackingSequence" /> object representing the newly created sequence.</returns>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.TrackingSequences">
+            <summary>Gets the tracking sequences in the project.</summary>
+            <returns>An array of <see cref="T:VXelementsApi.VXtrack.ITrackingSequence" /> objects containing all the retrieved sequences.</returns>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.CurrentTrackingSequence">
+            <summary>Gets or sets the current tracking sequence.</summary>
+            <value>An <see cref="T:VXelementsApi.VXtrack.ITrackingSequence" /> object representing the current sequence.</value>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.RemoveAllEntities">
+            <summary>Removes all tracking entities and sequences from the project.</summary>
+            <remarks>
+	This method will remove all tracking entities from the project. Since they would be left empty, this method will also remove all sequences.
+</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.RemoveEntity(VXelementsApi.VXtrack.ITrackingEntity)">
+            <summary>Removes a tracking entity from the list of tracking models.</summary>
+            <param name="TrackingEntityToRemove">A <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the model to be removed.</param>
+            <remarks>
+                <para>This method will remove a tracking entity from the list of tracking models.</para>
+                <para>If the tracking entity is in a sequence, it will be removed from the sequence.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.AddCodedTarget">
+            <summary>Add coded targets to the model list.</summary>
+            <remarks>This method will display a window for adding coded targets, either detected by the C-Track or manually, to the list of models.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.AddCodedTarget(System.Int32)">
+            <summary>Adds a coded target to the list of model.</summary>
+            <param name="Code">The numeric code associated to the coded target.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.DetectModel">
+            <summary>Starts the detection of a tracking model.</summary>
+            <remarks>This method will display the VXelements interface to allow the detection of a new tracking model.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.ImportModel(System.String)">
+            <summary>Imports a tracking model from a file.</summary>
+            <param name="FileName">Name of the file containing the model data.</param>
+            <returns>A <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object representing the imported tracking model.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.IVXtrack.CreateModel(VXelementsApi.Types.IPositioningTargets[])">
+            <summary>Creates a tracking model using a set of positioning targets.</summary>
+            <param name="PositioningTargetsArray">An array of <see cref="T:VXelementsApi.Types.IPositioningTargets" /> objects representing the set of targets used to create the model.</param>
+            <returns>An <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object representing the newly created tracking model.</returns>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.TrackingEntities">
+            <summary>Gets the tracking models contained in the project.</summary>
+            <value>An array of <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> objects representing each model.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.IsTrackingStarted">
+            <summary>Gets the status of the tracking process.</summary>
+            <value>
+                <c>true</c> if tracking process is started; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.TrackingParameters">
+            <summary>Gets the tracking parameters.</summary>
+            <value>A <see cref="T:VXelementsApi.VXtrack.ITrackingParameters" /> object for managing the tracking parameters.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.ModelsChangedEvent">
+            <summary>Occurs when the tracking models have changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.SequencesChangedEvent">
+            <summary>Occurs when a tracking sequence is changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.DetectModelStoppedEvent">
+            <summary>Occurs when the tracking model detection is stopped.</summary>
+            <value>A <see cref="T:VXelementsApi.VXtrack.DetectModelStoppedEvent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.DetectModelStartedEvent">
+            <summary>Occurs when the tracking model detection is started.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.TrackingStoppedEvent">
+            <summary>Occurs when the tracking process is stopped.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.TrackingStartedEvent">
+            <summary>Occurs when the tracking process is started.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.IVXtrack.TrackingDataReadyEvent">
+            <summary>Occurs when the system is ready to start the tracking process.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.IVXtrack">
+            <summary>The IVXtrack interface provides basic functionalities related to the VXtrack API.</summary>
+            <remarks>Those functionalities include managing events, retrieving the tracker status, managing tracking models and sequences, managing the graphical user interface, etc.</remarks>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.DetectModelStoppedEvent">
+            <summary>Represents a detect model stopped event.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.DetectModelStoppedEventInvoker.InitializeLifetimeService">
+            <summary>Obtains a lifetime service object to control the lifetime policy for this instance.</summary>
+            <remarks>For internal use.</remarks>
+            <exclude />
+        </member>
+        <member name="M:VXelementsApi.VXtrack.DetectModelStoppedEventInvoker.op_FunctionCall(VXelementsApi.VXtrack.ITrackingModel)">
+            <summary>Invokes the event.</summary>
+            <param name="NewTrackingModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object representing the new tracking model that was created from the data gathered during the detection process.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.DetectModelStoppedEventInvoker.#ctor(VXelementsApi.VXtrack.DetectModelStoppedEventHandler)">
+            <summary>Initializes a new instance of the class with the given <see cref="T:VXelementsApi.VXtrack.DetectModelStoppedEventHandler" />.</summary>
+            <param name="EventHandler">The delegate to attach to the event.</param>
+        </member>
+        <member name="E:VXelementsApi.VXtrack.DetectModelStoppedEventInvoker.Handler">
+            <summary>Occurs when the current invoker is called with <see cref="M:VXelementsApi.VXtrack.DetectModelStoppedEventInvoker.op_FunctionCall(VXelementsApi.VXtrack.ITrackingModel)" />.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.DetectModelStoppedEventInvoker">
+            <summary>Represents a wrapper around a delegate to execute any method in managed code that is designed to handle a detect model stopped.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.DetectModelStoppedEventHandler">
+            <summary>Delegate used to call the event that stops the detection of a tracking model.</summary>
+            <param name="NewTrackingModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object representing the new tracking model that was created from the data gathered during the detection process.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingParameters.GetFilterDuration">
+            <summary>Gets the effective duration of the filter.</summary>
+            <returns>A floating-point value representing the duration of the filter in seconds.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingParameters.GetSamplingRate">
+            <summary>Gets the effective sampling rate of the C-Track.</summary>
+            <returns>A floating-point value representing the sampling rate in hertz.</returns>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.IsFilterOnSlaveSupported">
+            <summary>Gets if filtering is supported in slave trigger mode.</summary>
+            <value>
+                <c>true</c> if filtering is supported in this mode; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.IsFilterOnMasterSupported">
+            <summary>Gets if filtering is supported in master trigger mode.</summary>
+            <value>
+                <c>true</c> if filtering is supported in this mode; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.IsSamplingOnSlaveSupported">
+            <summary>Gets if sampling is supported in slave trigger mode.</summary>
+            <value>
+                <c>true</c> if sampling is supported in this mode; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.IsSamplingOnMasterSupported">
+            <summary>Gets if sampling is supported in master trigger mode.</summary>
+            <value>
+                <c>true</c> if sampling is supported in this mode; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.IsSampledTrigOutSupported">
+            <summary>Gets if the C-Track can do sampling with the external trigger.</summary>
+            <value>
+                <c>true</c> if sampling can be used with the external trigger; otherwise, <c>false</c>.</value>
+            <remarks>This property will only return <c>true</c> when sampling is supported with an external trigger and the C-Track is trigged by its internal clock (see <seealso cref="P:VXelementsApi.VXtrack.ITrackingParameters.TriggerType" />).</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.IsPolaritySupported">
+            <summary>Gets if the user can change the polarity of the external trigger.</summary>
+            <value>
+                <c>true</c> if the polarity of the trigger can be changed; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.IsTrigInSupported">
+            <summary>Gets if the current C-Track can be used in slave mode.</summary>
+            <value>
+                <c>true</c> if the C-Track can be used in slave mode; otherwise, <c>false</c>.</value>
+            <remarks>This property will only return <c>true</c> when there is a trig-in on the C-Track.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.FilterSize">
+            <summary>Gets or sets the size of the filter used to average consecutive recorded poses.</summary>
+            <param name="FilterSize">An integer value representing the filter size.</param>
+            <remarks>The valid range goes from 0 (i.e. no filtering) to 30 poses.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.SamplingFactor">
+            <summary>Gets or sets the sampling factor.</summary>
+            <param name="SamplingFactor">An integer value representing the factor used to sample the recorded data.</param>
+            <remarks>
+                <para>The valid range goes from -30 to 7. A negative value will force subsampling while a positive value will force upsampling. The default is 1.</para>
+                <para>For instance, -30 will do a 30x subsampling and 7 will do a 7x upsampling.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.AcquisitionRate">
+            <summary>Gets or sets the image acquisition rate.</summary>
+            <param name="AcquisitionRate">A floating-point value representing the acquisition rate. The default is 30 Hz.</param>
+            <remarks>
+                <para>The valid range goes from 1 Hz to 30 Hz.</para>
+                <para>Depending on your setup, the acquisition rate might be limited to 20 Hz; please contact technical support for further details.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.TriggerPolarity">
+            <summary>Gets or sets the trigger polarity used with an external device.</summary>
+            <value>A <seealso cref="T:VXelementsApi.VXtrack.TriggerPolarityType" /> value representing the current trigger polarity type.</value>
+            <remarks>This parameter is only revelant when an external device is connected to the GPIO port of the C-Track.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.TriggerType">
+            <summary>Gets or set the trigger type.</summary>
+            <value>A <seealso cref="T:VXelementsApi.VXtrack.TriggerType" /> value representing the current trigger type.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.StopAfterMaximumSequenceLengthReached">
+            <summary>Gets or set if the sequence must stop after the maximum length is reached or continue by recording only the most recent poses.</summary>
+            <value>
+                <c>true</c> if the sequence must stop after reaching the maximum length, false otherwise.</value>
+            <remarks>When this property is set to False and <seealso cref="P:VXelementsApi.VXtrack.ITrackingParameters.LimitSequenceLength" /> is set to True, the first recorded poses will be removed from the sequence in order to allow the recording of new poses.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.MaximumSequenceLength">
+            <summary>Gets or sets the maximum length of the tracking sequence</summary>
+            <value>An integer value representing the maximal number of poses (i.e. indices) allowed in the sequence.</value>
+            <remarks>This property will have no effect if the <seealso cref="P:VXelementsApi.VXtrack.ITrackingParameters.LimitSequenceLength" /> parameter is set to False.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.LimitSequenceLength">
+            <summary>Gets or sets if the tracking sequence is limited in length.</summary>
+            <value>
+                <c>true</c> if the sequence is limited; otherwise, <c>false</c>.</value>
+            <remarks>When a sequence is limited, the property <seealso cref="P:VXelementsApi.VXtrack.ITrackingParameters.MaximumSequenceLength" /> determines its maximum length.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingParameters.Cancel">
+            <summary>Cancels all changes to the tracking parameters.</summary>
+            <remarks>Using this method will revert the tracking parameters to the latest effective set of parameters.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingParameters.Apply">
+            <summary>Applies changes to the tracking parameters.</summary>
+            <seealso cref="P:VXelementsApi.VXtrack.ITrackingParameters.IsParametersChanged" />
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.IsParametersChanged">
+            <summary>Gets the status of the if the parameters have changed.</summary>
+            <value>
+                <c>true</c> when some tracking parameters have changed but are not effective; otherwise, <c>false</c>.</value>
+            <remarks>Use <seealso cref="M:VXelementsApi.VXtrack.ITrackingParameters.Apply" /> to apply the parameters or <seealso cref="M:VXelementsApi.VXtrack.ITrackingParameters.Cancel" /> to revert to the previous ones. Using either one of these methods will reset the property to False.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.ParametersUpdatedEvent">
+            <summary>Sets the event notifying that a tracking parameter has been updated.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>This event is raised only when the user clicks on the 'Apply' button after having changed a tracking parameter value.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingParameters.ParametersChangedEvent">
+            <summary>Sets the event notifying that a tracking parameter has changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>This event is raised as soon as the value of a tracking parameter us changed by the user.</remarks>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.ITrackingParameters">
+            <summary>The interface ITrackingParameters derives from the IParametersBase interface. It provides functionalities specifically related to tracking models.</summary>
+            <remarks>Those functionalities include limiting the length of a tracking sequence, changing the type and polarity of the tracker triggering action, modifying the acquisition rate, etc.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.ExportToCsv(System.String)">
+            <summary>Saves the tracking sequence to a file in the CSV format.</summary>
+            <param name="FileName">The name of the file that will be used to store the sequence. If null, a <see cref="T:System.Windows.Forms.SaveFileDialog" /> dialog box will be shown.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetLastPositioningTargetsState(VXelementsApi.VXtrack.ITrackingEntity)">
+            <summary>Gets the state of the positioning targets (i.e. detected or not) for a specific entity as they were on the previous time index.</summary>
+            <param name="TrackingEntity">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the entity of interest.</param>
+            <returns>An array of booleans indicating the state of each positioning target at that time. <c>true</c> if the target is detected by the tracker, false otherwise.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetLastPositioningTargets(VXelementsApi.VXtrack.ITrackingEntity)">
+            <summary>Gets the positioning targets of a specific tracking entity as they were on the previous time index.</summary>
+            <param name="TrackingEntity">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the entity of interest.</param>
+            <returns>An array of <see cref="T:VXelementsApi.Types.IPositioningTargets" /> objects representing the targets of the requested entity on the previous time index.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetLastPose(VXelementsApi.VXtrack.ITrackingEntity)">
+            <summary>Gets the most recent pose seen for a specific tracking entity.</summary>
+            <param name="TrackingEntity">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the entity to be located.</param>
+            <returns>An <see cref="T:VXelementsApi.Types.IPose3d" /> object representing the last 3D pose seen for the requested tracking entity.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetUnmatchedTargets(System.UInt32)">
+            <summary>Gets the list of unmatched targets at a given index.</summary>
+            <param name="Index">An integer value representing an index in the tracking sequence.</param>
+            <returns>An array of <see cref="T:VXelementsApi.Types.Point3dFloat" /> objects representing the unmatched targets at the given index of the sequence.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetDetectedTargetCount(VXelementsApi.VXtrack.ITrackingEntity,System.UInt32)">
+            <summary>Gets the number of targets that were detected for a specific entity at a given index.</summary>
+            <param name="TrackingEntity">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the tracking entity of interest.</param>
+            <param name="Index">An integer value representing an index in the tracking sequence.</param>
+            <returns>An integer value representing the number of positioning targets detected for the specified entity.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetPositioningTargetsState(VXelementsApi.VXtrack.ITrackingEntity,System.UInt32)">
+            <summary>Gets the state of the positioning targets (i.e. detected or not) of a specific entity at a given index.</summary>
+            <param name="TrackingEntity">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the tracking entity of interest.</param>
+            <param name="Index">An integer value representing an index in the tracking sequence.</param>
+            <returns>An array of booleans indicating the state of each positioning target. <c>true</c> if the target is detected by the tracker, false otherwise.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetPositioningTargets(VXelementsApi.VXtrack.ITrackingEntity,System.UInt32)">
+            <summary>Gets the positioning targets of a specific entity at a given index.</summary>
+            <param name="TrackingEntity">An ITrackingEntity object representing the tracking entity of interest.</param>
+            <param name="Index">An integer value representing an index in the tracking sequence.</param>
+            <returns>An array of <see cref="T:VXelementsApi.Types.IPositioningTargets" /> objects representing the positioning targets for the requested entity.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetPose(VXelementsApi.VXtrack.ITrackingEntity,System.UInt32)">
+            <summary>Gets the pose of a specified entity at a given index in the sequence.</summary>
+            <param name="TrackingEntity">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the entity to be located.</param>
+            <param name="Index">An integer value representing an index in the tracking sequence.</param>
+            <returns>An <see cref="T:VXelementsApi.Types.IPose3d" /> object representing the 3D pose of the requested tracking entity.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetIndex(System.UInt32)">
+            <summary>Gets the closest index to a given time in the tracking sequence.</summary>
+            <param name="Time">An integer value reprensenting the number of milliseconds passed from the start of the sequence to the moment corresponding to the index.</param>
+            <returns>An integer value representing the closest index in the sequence for the given time.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetTime(System.UInt32)">
+            <summary>Gets the time at a given index of the tracking sequence.</summary>
+            <param name="Index">An integer value representing an index in the sequence.</param>
+            <returns>An integer value reprensenting the number of milliseconds passed from the start of the sequence to the moment corresponding to the index.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.GetLength">
+            <summary>Gets the length of the tracking sequence.</summary>
+            <returns>An integer value representing the number of poses in the tracking sequence.</returns>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.RemoveAllTrackingEntities">
+            <summary>Removes all tracking entities from the sequence.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.RemoveTrackingEntity(VXelementsApi.VXtrack.ITrackingEntity)">
+            <summary>Removes a tracking entity from the sequence.</summary>
+            <param name="TrackingEntityToRemove">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the entity to be removed from the tracking sequence.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.AddCodedTarget(VXelementsApi.VXtrack.ITrackingCodedTarget)">
+            <summary>Adds a coded target to the tracking sequence.</summary>
+            <param name="CodedTarget">An <see cref="T:VXelementsApi.VXtrack.ITrackingCodedTarget" /> object representing the coded target to be added to the tracking sequence.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.AddTrackingModelRelationInActiveReferenceFrame(VXelementsApi.VXtrack.ITrackingEntity,VXelementsApi.VXtrack.ITrackingEntity)">
+            <summary>Adds a model relation to the tracking sequence.</summary>
+            <param name="ObservedModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the observed model to be added to the tracking sequence. Can only be a <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> or a <see cref="T:VXelementsApi.VXtrack.ITrackingCodedTarget" /></param>
+            <param name="ReferenceModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the reference model to be added to the tracking sequence. Can only be a <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> or a <see cref="T:VXelementsApi.VXtrack.ITrackingCodedTarget" /></param>
+            <exception cref="T:System.ArgumentException">
+	Thrown when one of the given entity is invalid in a relation. For example, when a relation is given.
+</exception>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.AddTrackingModelRelation(VXelementsApi.VXtrack.ITrackingEntity,VXelementsApi.VXtrack.ITrackingEntity)">
+            <summary>Adds a model relation to the tracking sequence.</summary>
+            <param name="ObservedModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the observed model to be added to the tracking sequence. Can only be a <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> or a <see cref="T:VXelementsApi.VXtrack.ITrackingCodedTarget" /></param>
+            <param name="ReferenceModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> object representing the reference model to be added to the tracking sequence. Can only be a <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> or a <see cref="T:VXelementsApi.VXtrack.ITrackingCodedTarget" /></param>
+            <exception cref="T:System.ArgumentException">
+	Thrown when one of the given entity is invalid in a relation. For example, when a relation is given.
+</exception>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.AddTrackingModelRelationInActiveReferenceFrame(VXelementsApi.VXtrack.ITrackingModel,VXelementsApi.VXtrack.ITrackingModel)">
+            <summary>Adds a model relation to the tracking sequence.</summary>
+            <param name="ObservedModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object representing the observed model to be added to the tracking sequence.</param>
+            <param name="ReferenceModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object representing the reference model to be added to the tracking sequence.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.AddTrackingModelRelation(VXelementsApi.VXtrack.ITrackingModel,VXelementsApi.VXtrack.ITrackingModel)">
+            <summary>Adds a model relation to the tracking sequence.</summary>
+            <param name="ObservedModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object representing the observed model to be added to the tracking sequence.</param>
+            <param name="ReferenceModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object representing the reference model to be added to the tracking sequence.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingSequence.AddTrackingModel(VXelementsApi.VXtrack.ITrackingModel)">
+            <summary>Adds a tracking model to the sequence.</summary>
+            <param name="TrackingModel">An <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object representing the model to be added to the tracking sequence.</param>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingSequence.TargetDisplayed(System.Int32,System.Int32)">
+            <summary>Gets or sets if the target of a tracking entity is shown in tracking controls.</summary>
+            <value>
+                <c>true</c> if the entity is shown; otherwise, <c>false</c>.</value>
+            <param name="TrackingEntityIndex">An integer value representing the index of the entity.</param>
+            <param name="TargetIndex">An integer value representing the index of the target.</param>
+            <remarks>The first index is 0.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingSequence.TrackingEntityDisplayed(System.Int32)">
+            <summary>Gets or sets if the tracking entity is shown in tracking controls.</summary>
+            <value>
+                <c>true</c> if the entity is shown; otherwise, <c>false</c>.</value>
+            <param name="TrackingEntityIndex">An integer value representing the index of the entity.</param>
+            <remarks>The first index is 0.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingSequence.UnmatchedCodedTarget(System.UInt32)">
+            <summary>Gets the coded targets that were detected but not tracked in the sequence.</summary>
+            <value>An array of <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> containing the unmatched coded targets at the given index of the sequence.</value>
+            <param name="Index">An integer value representing an index in the sequence.</param>
+            <remarks>An unmatched coded target is a coded target that is detected but doesn't belong in any tracking entity of the sequence.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingSequence.TrackingEntities">
+            <summary>Gets the tracking entities contained in the sequence.</summary>
+            <value>An array of <see cref="T:VXelementsApi.VXtrack.ITrackingEntity" /> containing all tracking entities retrieved from the sequence.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingSequence.Name">
+            <summary>Gets or sets the name of the tracking sequence.</summary>
+            <value>A string containing the name of the sequence.</value>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.ITrackingSequence">
+            <summary>The ITrackingSequence interface provides functionalities to manage tracking sequences.</summary>
+            <remarks>These functionalities include adding a model or relation to the sequence, removing a tracking entity from the sequence, retrieving the number of recorded poses in the sequence, etc.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingCodedTarget.OriginOffset">
+            <summary>Gets or sets the origin offset used.</summary>
+            <value>An <see cref="T:VXelementsApi.Types.IPose3d" /> object representing the offset to be applied on the origin.</value>
+            <remarks>The offset can be expressed as a pose, a rotation or a translation.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingCodedTarget.Code">
+            <summary>Get the code of the coded target.</summary>
+            <value>An integer representing the number associated to the coded target.</value>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.ITrackingCodedTarget">
+            <summary>The ITrackingCodedTarget interface derives from the ITrackingEntity interface. It provides information on the tracking of a single coded target.</summary>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingModelRelation.Targets">
+            <summary>Gets an array containing the observed model positioning target.</summary>
+            <value>An array of <see cref="T:VXelementsApi.Types.IPositioningTargets" /> objects representing the positioning targets for the observed model.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingModelRelation.ReferenceModel">
+            <summary>Gets the reference model of the relation.</summary>
+            <value>An <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object with the reference model of the relation.</value>
+            <remarks>The pose of a reference model is used to express the pose of a second model (i.e. the observed model).</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingModelRelation.ObservedModel">
+            <summary>Gets the observed model of the relation.</summary>
+            <value>An <see cref="T:VXelementsApi.VXtrack.ITrackingModel" /> object with the observed model of the relation.</value>
+            <remarks>The pose of an observed model is expressed in relation to a reference model. For example, if both models move the same way, no movement will be recorded in the tracking sequence.</remarks>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.ITrackingModelRelation">
+            <summary>The ITrackingModelRelation interface derives from the ITrackingEntity interface. It provides information on the relation between two tracking models.</summary>
+            <remarks>When tracking is based on the relation between two models, this class allows to retrieve data related to an observed model in respect to a reference model.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingModel.Save(System.String)">
+            <summary>Saves the tracking model to a plain text file.</summary>
+            <param name="FileName">The name of the file that will be used to store the model data. If <c>null</c>, a <see cref="T:System.Windows.Forms.SaveFileDialog" /> dialog box will be shown.</param>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingModel.CenterOriginOffsetOnTargets">
+            <summary>Centers the origin offset on the model positioning target.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXtrack.ITrackingModel.SetOriginOffset(VXelementsApi.Types.Point3dFloat,VXelementsApi.Types.Point3dFloat)">
+            <summary>Sets the origin offset of the model.</summary>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingModel.UpdateTargetPositionWhileTracking">
+            <summary>Gets or sets a value indicating if the position of the targets in the model should be updated while tracking.</summary>
+            <value>
+                <c>true</c> when the position of each target of the model is updated automatically while tracking; otherwise, <c>false</c>. The default is <c>true</c>.</value>
+            <remarks>
+                <para>This property is only used when <see cref="P:VXelementsApi.VXtrack.ITrackingModel.ModelType" /> is set to <see cref="T:VXelementsApi.VXtrack.ITrackingModel.TrackingModelType">NonRigid</see>.</para>
+                <para>
+		Setting this value to <c>true</c> will update the position of the tracked targets at each frame. 
+		Setting this value to <c>false</c> will keep the position of the targets at their latest updated 
+		positions or their detected position when the model was created.
+	</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingModel.MaximalNumberOfFramesForTargetOccultation">
+            <summary>Gets or sets the maximal number of frames that a target of the model can be hidden or occulted.</summary>
+            <value>An integer representing the maximal number of frames that a target can be hidden or occulted.</value>
+            <remarks>
+                <para>This property is only used when <see cref="P:VXelementsApi.VXtrack.ITrackingModel.ModelType" /> is set to <see cref="T:VXelementsApi.VXtrack.ITrackingModel.TrackingModelType">NonRigid</see>.</para>
+                <para>When a target of the model has not been seen for this number of frames, the target is considered lost and is no longer tracked. This won't change the tracking status of the other targets of the model.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingModel.MaximalTargetDisplacementBetweenFrames">
+            <summary>Gets or sets the maximal displacement allowed for a target of the model between two frames.</summary>
+            <value>A floating-point value representing the maximal displacement allowed for a target of the model between two frames. The value is expressed in millimeters.</value>
+            <remarks>
+                <para>This property is only used when <see cref="P:VXelementsApi.VXtrack.ITrackingModel.ModelType" /> is set to <see cref="T:VXelementsApi.VXtrack.ITrackingModel.TrackingModelType">NonRigid</see>.</para>
+                <para>When the displacement of a target between two frames is greater than this value, the target is no longer tracked.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingModel.OriginOffset">
+            <summary>Gets the origin offset used for the model.</summary>
+            <value>An <see cref="T:VXelementsApi.Types.IPose3d" /> object representing the offset to be applied on the origin.</value>
+            <remarks>
+                <para>This property is only used when <see cref="P:VXelementsApi.VXtrack.ITrackingModel.ModelType" /> is set to <see cref="T:VXelementsApi.VXtrack.ITrackingModel.TrackingModelType">Rigid</see>.</para>
+                <para>The offset can be expressed as a pose, a rotation or a translation.</para>
+                <para>Changing the <see cref="P:VXelementsApi.VXtrack.ITrackingModel.ModelType" /> property might change this value.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingModel.MinimumNumberOfTargetsToDetect">
+            <summary>Gets or sets the minimal number of positioning targets which must be seen in order to detect the tracking model.</summary>
+            <value>An integer representing the minimum number of targets to be seen.</value>
+            <remarks>
+                <para>This property is only used when <see cref="P:VXelementsApi.VXtrack.ITrackingModel.ModelType" /> is set to <see cref="T:VXelementsApi.VXtrack.ITrackingModel.TrackingModelType">Rigid</see>.</para>
+                <para>The minimum number of targets must be greater than or equal to 3.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingModel.Targets">
+            <summary>Gets an array containing the positioning targets of the model.</summary>
+            <value>An array of <see cref="T:VXelementsApi.Types.IPositioningTargets" /> with the positioning targets for the model.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingModel.ModelType">
+            <summary>Gets or sets the type of the model.</summary>
+            <value>One of the model types available.</value>
+            <remarks>
+                <para>Switching types will not reset properties to their default values.</para>
+                <para>Switching from Rigid to NonRigid will automatically <see cref="M:VXelementsApi.VXtrack.ITrackingModel.CenterOriginOffsetOnTargets">center origin offsets on targets</see>, overwriting the information in <see cref="P:VXelementsApi.VXtrack.ITrackingModel.OriginOffset" />.</para>
+            </remarks>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.ITrackingModel.TrackingModelType.NonRigid">
+            <summary>The model is tracked as a set of targets that move independently of each other. Each target of the model is tracked independently.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.ITrackingModel.TrackingModelType.Rigid">
+            <summary>The model is tracked as a rigid body. The location and orientation of the model can change but the shape of the target pattern is not affected. Therefore, targets cannot move independently of each other.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.ITrackingModel.TrackingModelType">
+            <summary>Specifies the types of tracking models supported by the tracking module.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.ITrackingModel">
+            <summary>The ITrackingModel interface derives from the ITrackingEntity interface. It provides functionalities specifically related to tracking models.</summary>
+            <remarks>These functionalities include retrieving the positioning targets used to create the model, center the origin on those targets, save the tracking model into file, etc.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingEntity.Type">
+            <summary>Gets the type of the tracking entity.</summary>
+            <value>A <see cref="T:VXelementsApi.VXtrack.ITrackingEntity.TrackingEntityType" /> object representing the type of the entity.</value>
+        </member>
+        <member name="P:VXelementsApi.VXtrack.ITrackingEntity.Name">
+            <summary>Gets or sets the name of the tracking entity.</summary>
+            <value>A string with the name of the tracking entity.</value>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.ITrackingEntity.TrackingEntityType.CodedTarget">
+            <summary>The tracking entity is a coded target.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.ITrackingEntity.TrackingEntityType.Relation">
+            <summary>The tracking entity is a geometric relation to another entity.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.ITrackingEntity.TrackingEntityType.Model">
+            <summary>The tracking entity is a model.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.ITrackingEntity.TrackingEntityType">
+            <summary>Specifies the types of tracking entities supported by the tracking module.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.ITrackingEntity">
+            <summary>The ITrackingEntity interface provides information about the name or the type of a specific tracking entity.</summary>
+            <remarks>A tracking entity can either be a tracking model or a relation between two tracking models.</remarks>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.ReferencingMode">
+            <summary>Specifies the possible referencing modes of the tracking system.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.ReferencingMode.Automatic">
+            <summary>The reference system is automatically toggled between static and dynamic depending on the visibility of the positioning model at any given time.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.ReferencingMode.Dynamic">
+            <summary>The reference system is the positioning model, which is tracked dynamically.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.ReferencingMode.Static">
+            <summary>The reference system is a snapshot of the current positioning model.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.ReferencingMode.Sensor">
+            <summary>The reference system is the tracker itself.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.TriggerPolarityType">
+            <summary>Specifies the polarity of the triggering system of the tracker.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.TriggerPolarityType.Low">
+            <summary>The tracker will be activated on the falling edge of the trigger signal.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.TriggerPolarityType.High">
+            <summary>The tracker will be activated on the rising edge of the trigger signal.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.TriggerType">
+            <summary>Specifies possible ways to control the trigger signal of the tracker.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.TriggerType.Slave">
+            <summary>The trigger will be controlled by an external device.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXtrack.TriggerType.Master">
+            <summary>The trigger will be controlled by the internal clock of the tracker.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXtrack.NamespaceDoc">
+            <summary>The VXtrack namespace includes classes for interacting with the tracking module in VXelements.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXshot.IVXshot.ShowShootingWindow">
+            <summary>Shows the shooting window.</summary>
+            <remarks>
+                <para>This methods starts the shooting process and opens the shooting window.</para>
+                <note type="warning">The shooting process cannot run at the same time as the scanning process. It will start only when the scanning process is not active.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXshot.IVXshot.CodedTargets">
+            <summary>Gets an array of the coded targets created by the shooting process.</summary>
+            <returns>An array of <see cref="T:VXelementsApi.VXshot.ICodedTarget" /> representing the coded targets created by the shooting process.</returns>
+        </member>
+        <member name="P:VXelementsApi.VXshot.IVXshot.Targets">
+            <summary>Gets an array of the targets created by the shooting process.</summary>
+            <value>An array of <see cref="T:VXelementsApi.Types.Point3dFloat" /> representing the targets created by the shooting process.</value>
+        </member>
+        <member name="P:VXelementsApi.VXshot.IVXshot.IsShootingStarted">
+            <summary>Gets a value indicating the status of the shooting process.</summary>
+            <value>
+                <c>true</c> if there is an active shooting session; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXshot.IVXshot.ModelChangedEvent">
+            <summary>Occurs when the photogrammetric model has changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is triggered when the user accepts the photogrammetric model.</para>
+                <para>This event is always triggered before the <see cref="P:VXelementsApi.VXshot.IVXshot.ShootingStoppedEvent" /> event.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXshot.IVXshot.ShootingStoppedEvent">
+            <summary>Occurs when the shooting session is completed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is triggered when the shooting window is closed by the user.</para>
+                <para>When the model is accepted, this event is triggered after the <see cref="P:VXelementsApi.VXshot.IVXshot.ModelChangedEvent" /> event.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXshot.IVXshot.ShootingStartedEvent">
+            <summary>Occurs when the shooting session is started.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>This event is triggered before the shooting window is shown.</remarks>
+        </member>
+        <member name="T:VXelementsApi.VXshot.IVXshot">
+            <summary>Manages the shooting process and dispatches events.</summary>
+        </member>
+        <member name="P:VXelementsApi.VXshot.ICodedTarget.Pose">
+            <summary>Gets or sets the origin offset used for the model.</summary>
+            <value>An <see cref="T:VXelementsApi.Types.IPose3d" /> object representing the offset to be applied on the origin.</value>
+        </member>
+        <member name="P:VXelementsApi.VXshot.ICodedTarget.Code">
+            <summary>Gets the code of the coded target.</summary>
+            <value>An integer representing the number associated to the coded target.</value>
+        </member>
+        <member name="T:VXelementsApi.VXshot.ICodedTarget">
+            <summary>Represents a coded target.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXshot.NamespaceDoc">
+            <summary>The VXshot namespace includes classes for interacting with the shooting module in VXelements.</summary>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.IsAutomaticProbeDetectionSupported">
+            <summary>Returns whether the automatic probe detection is supported or not.</summary>
+            <value>
+                <c>true</c> if the probe can be automatically detected, otherwise <c>false</c>.</value>
+        </member>
+        <member name="M:VXelementsApi.VXprobe.IVXprobe.MeasureAllOpticalTargets">
+            <summary>Measures all detected optical targets automatically.</summary>
+            <remarks>
+                <para>This function will automatically probe detected optical targets in the field of view of the C-Track or the C-Link network.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.VXprobe.IVXprobe.RemoveProbe(System.String)">
+            <summary>Removes a probe from the probe list.</summary>
+            <param name="ProbeName">The name of the probe to be removed.</param>
+            <remarks>
+                <note>If the probe doesn't exist, the operation will be silently ignored.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.VXprobe.IVXprobe.RenameProbe(System.String,System.String)">
+            <summary>Renames a probe in the probe list.</summary>
+            <param name="CurrentProbeName">The name of the probe to be renamed.</param>
+            <param name="NewProbeName">The new name of the probe.</param>
+            <remarks>
+                <note>If the probe doesn't exist, the operation will be silently ignored.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.VXprobe.IVXprobe.AddProbe(System.String,System.Single,System.Boolean)">
+            <summary>Adds a new probe to the probe list.</summary>
+            <param name="ProbeName">The name of the probe.</param>
+            <param name="Diameter">The diameter of the probe.</param>
+            <param name="IsBent">
+                <c>true</c> if the probe is bent, i.e. is connected to a stylus that isn't straight; otherwise, <c>false</c>.</param>
+            <remarks>
+                <para>This method will add a new probe with the given parameters to the probe list.</para>
+                <para>The new probe will automatically become the active probe.</para>
+                <note>If there is already a probe with the same name, the operation will be silently ignored.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.VXprobe.IVXprobe.CalibrateProbe">
+            <summary>Calibrates the currently active probe.</summary>
+            <remarks>
+                <para>This method will launch the probe calibration window from VXelements to calibrate the active probe on the HandyPROBE.</para>
+                <note>This method only works when there is an active probe.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.VXprobe.IVXprobe.ActivateProbe(System.String)">
+            <summary>Activates the specified probe.</summary>
+            <param name="ProbeName">The name of the probe to activate.</param>
+            <remarks>
+                <para>This method will set the given probe as the active probe.</para>
+                <note>If the probe doesn't exist, the operation will be silently ignored and the currently active probe will stay active.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.Probes">
+            <summary>Gets the list of probes.</summary>
+            <value>An array of <see cref="T:VXelementsApi.VXprobe.IProbeInformation" /> objects representing the probes managed by VXelements.</value>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.ActiveProbe">
+            <summary>Gets the currently active probe.</summary>
+            <value>An <see cref="T:VXelementsApi.VXprobe.IProbeInformation" /> object with information on the active probe.</value>
+            <remarks>The property will contain <c>null</c> when there is no active probe.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.CurrentProbeDirection">
+            <summary>Gets the current direction of the probe. Inaccurate for measurements.</summary>
+            <value>A <see cref="T:VXelementsApi.Types.Point3dFloat" /> object with the direction of the latest position of the HandyPROBE.</value>
+            <remarks>
+                <note type="warning">
+		This property is not accurate enough to be used as a measurement. It should only be used for display the 
+		current direction of the probe. Attach to <see cref="P:VXelementsApi.VXprobe.IVXprobe.SingleProbingMeasurementEvent" /> for acquiring accurate measurements.
+    </note>
+            </remarks>
+            <seealso cref="P:VXelementsApi.VXprobe.IVXprobe.SingleProbingMeasurementEvent" />
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.CurrentProbePosition">
+            <summary>Gets the current position of the probe. Inaccurate for measurements.</summary>
+            <value>An <see cref="T:VXelementsApi.Types.Point3dFloat" /> object with the coordinates of the latest position of the HandyPROBE.</value>
+            <remarks>
+                <note type="warning">
+		This property is not accurate enough to be used as a measurement. It should only be used to display the 
+		current position of the probe. Attach to <see cref="P:VXelementsApi.VXprobe.IVXprobe.SingleProbingMeasurementEvent" /> for acquiring accurate measurements.
+    </note>
+            </remarks>
+            <seealso cref="P:VXelementsApi.VXprobe.IVXprobe.SingleProbingMeasurementEvent" />
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.ToggleProbingModeWithProbe">
+            <summary>Gets or sets a value indicating if the probing mode can be toggled by clicking and holding the cancel button of the HandyPROBE for a second.</summary>
+            <value>
+                <c>true</c> if the probing mode can be toggled with the cancel button of the HandyPROBE; otherwise, <c>false</c>. The default is <c>false</c>.</value>
+            <remarks>
+                <para>
+		In the previous version of the API, it was possible to switch the probing mode by clicking and holding the cancel button 
+		of the HandyPROBE for a second. It is possible to get back this behavior by setting the property to <c>true</c>.
+	</para>
+                <note type="warning">Setting this property to <c>true</c> will disable the triggering of <see cref="P:VXelementsApi.VXprobe.IVXprobe.CancelButtonLongClickedEvent" /> events.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.IsProbeVisible">
+            <summary>Gets the visibility status of the HandyPROBE.</summary>
+            <value>
+                <c>true</c> if the HandyPROBE is detected by the tracker; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.IsProbeReady">
+            <summary>Gets the status of the HandyPROBE.</summary>
+            <value>
+                <c>true</c> if the HandyPROBE is ready to acquire data; otherwise, <c>false</c>.</value>
+            <remarks>
+                <note>The HandyPROBE is ready to acquire data when it is paired with an active and calibrated probe.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.ArrowDownButtonEvent">
+            <summary>Occurs when the DOwn button of the HandyPROBE is clicked once. Or when the button is hold, it occurs in a loop until released</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.ArrowUpButtonEvent">
+            <summary>Occurs when the Up button of the HandyPROBE is clicked once. Or when the button is hold, it occurs in a loop until released</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.CancelButtonLongClickedEvent">
+            <summary>Occurs when the Cancel button of the HandyPROBE is clicked and held for a second.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <note>This event will be triggered once; it will not trigger again until the button is released.</note>
+                <note>This event is only triggered when the <see cref="P:VXelementsApi.VXprobe.IVXprobe.ToggleProbingModeWithProbe" /> property is <c>false</c>.</note>
+            </remarks>
+            <seealso cref="P:VXelementsApi.VXprobe.IVXprobe.CancelButtonClickedEvent" />
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.CancelButtonClickedEvent">
+            <summary>Occurs when the Cancel button of the HandyPROBE is clicked once.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <note>Holding the button will not trigger this event; it will trigger the <see cref="P:VXelementsApi.VXprobe.IVXprobe.CancelButtonLongClickedEvent" /> event instead.</note>
+            </remarks>
+            <seealso cref="P:VXelementsApi.VXprobe.IVXprobe.CancelButtonLongClickedEvent" />
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.ValidateButtonLongClickedEvent">
+            <summary>Occurs when the Validate button of the HandyPROBE is clicked and held for a second.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <note>This event will be triggered once; it will not trigger again until the button is released.</note>
+            </remarks>
+            <seealso cref="P:VXelementsApi.VXprobe.IVXprobe.ValidateButtonClickedEvent" />
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.ValidateButtonClickedEvent">
+            <summary>Occurs when the Validate button of the HandyPROBE is clicked once.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <note>Holding the button will not trigger this event; it will trigger the <see cref="P:VXelementsApi.VXprobe.IVXprobe.ValidateButtonLongClickedEvent" /> event instead.</note>
+            </remarks>
+            <seealso cref="P:VXelementsApi.VXprobe.IVXprobe.ValidateButtonLongClickedEvent" />
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.MultipleProbingMeasurementsEvent">
+            <summary>Occurs when a batch of new probe measurements is available.</summary>
+            <value>A <see cref="T:VXelementsApi.VXprobe.MultipleProbingMeasurementsEvent" /> object that will notify attached methods.</value>
+            <remarks>
+                <note type="tip">This event should be used to fetch measurements for metrology software.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.SingleProbingMeasurementEvent">
+            <summary>Occurs when a new probe measurement is available.</summary>
+            <value>A <see cref="T:VXelementsApi.VXprobe.SingleProbingMeasurementEvent" /> object that will notify attached methods.</value>
+            <remarks>
+                <note type="tip">This event should be used to fetch measurements for metrology software.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.ProbePositionChangedEvent">
+            <summary>Occurs when the position of the probe is changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is trigged when the position or the visibility of the probe is changed.</para>
+                <note type="warning">
+		This event should only be used when approximative values are sufficient, like for the update of a digital read out control.
+		<br /><br />
+        Attach to <see cref="P:VXelementsApi.VXprobe.IVXprobe.SingleProbingMeasurementEvent" /> or <see cref="P:VXelementsApi.VXprobe.IVXprobe.MultipleProbingMeasurementsEvent" /> for acquiring accurate measurements.
+    </note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.StatusChangedEvent">
+            <summary>Occurs when there is a condition change with the tracker or the HandyPROBE.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.ProbesChangedEvent">
+            <summary>Occurs when the probe list is changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IVXprobe.ActiveProbeChangedEvent">
+            <summary>Occurs when the active probe is changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+	This event is triggered when one of these conditions occurs: 
+	<list type="bullet"><item>a new probe is set as active.</item><item>the state of the active probe has been changed (e.g. a new calibration).</item></list></remarks>
+        </member>
+        <member name="T:VXelementsApi.VXprobe.IVXprobe">
+            <summary>Manages the probing process and dispatches events.</summary>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IProbeInformation.IsCalibrated">
+            <summary>Gets the calibration status of the probe.</summary>
+            <value>
+                <c>true</c> if the probe has a valid calibration; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IProbeInformation.IsBent">
+            <summary>Gets the bent status of the probe.</summary>
+            <value>
+                <c>true</c> if the probe is bent, i.e. is not on a straight stylus; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IProbeInformation.Diameter">
+            <summary>Gets the diameter of the probe.</summary>
+            <value>A floating point number representing the diameter of the probe.</value>
+        </member>
+        <member name="P:VXelementsApi.VXprobe.IProbeInformation.Name">
+            <summary>Gets the name of the probe.</summary>
+            <value>A string containing the name given to the probe.</value>
+        </member>
+        <member name="T:VXelementsApi.VXprobe.IProbeInformation">
+            <summary>Provides detailed information on a probe.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXprobe.MultipleProbingMeasurementsEvent">
+            <summary>Represents a probing measurement batch event.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXprobe.MultipleProbingMeasurementsEventInvoker.InitializeLifetimeService">
+            <summary>Obtains a lifetime service object to control the lifetime policy for this instance.</summary>
+            <remarks>For internal use.</remarks>
+            <exclude />
+        </member>
+        <member name="M:VXelementsApi.VXprobe.MultipleProbingMeasurementsEventInvoker.op_FunctionCall(System.Single[0:,0:],System.Single[0:,0:],VXelementsApi.VXprobe.MeasureMode)">
+            <summary>Invokes the event.</summary>
+            <param name="Position">An array of positions for each measurement.</param>
+            <param name="Direction">An array of directions of the probe for each measurement.</param>
+            <param name="Mode">The mode in which the batch of measurements were taken.</param>
+        </member>
+        <member name="M:VXelementsApi.VXprobe.MultipleProbingMeasurementsEventInvoker.#ctor(VXelementsApi.VXprobe.MultipleProbingMeasurementsEventHandler)">
+            <summary>Initializes a new instance of the class with the given <see cref="T:VXelementsApi.VXprobe.MultipleProbingMeasurementsEventHandler" />.</summary>
+            <param name="EventHandler">The delegate to attach to the event.</param>
+        </member>
+        <member name="E:VXelementsApi.VXprobe.MultipleProbingMeasurementsEventInvoker.Handler">
+            <summary>Occurs when the current invoker is called with <see cref="M:VXelementsApi.VXprobe.MultipleProbingMeasurementsEventInvoker.op_FunctionCall(System.Single[0:,0:],System.Single[0:,0:],VXelementsApi.VXprobe.MeasureMode)" />.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXprobe.MultipleProbingMeasurementsEventInvoker">
+            <summary>Represents a wrapper around a delegate to execute any method in managed code that is designed to handle a batch of probe measurements.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXprobe.MultipleProbingMeasurementsEventHandler">
+            <summary>Represents the method to handle a batch of probe measurements.</summary>
+            <param name="Position">An array of positions for each measurement.</param>
+            <param name="Direction">An array of directions of the probe for each measurement.</param>
+            <param name="Mode">The mode in which the batch of measurements were taken.</param>
+        </member>
+        <member name="T:VXelementsApi.VXprobe.SingleProbingMeasurementEvent">
+            <summary>Represents a probing measurement event.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXprobe.SingleProbingMeasurementEventInvoker.InitializeLifetimeService">
+            <summary>Obtains a lifetime service object to control the lifetime policy for this instance.</summary>
+            <remarks>For internal use.</remarks>
+            <exclude />
+        </member>
+        <member name="M:VXelementsApi.VXprobe.SingleProbingMeasurementEventInvoker.op_FunctionCall(VXelementsApi.Types.Point3dFloat,VXelementsApi.Types.Point3dFloat,VXelementsApi.VXprobe.MeasureMode)">
+            <summary>Invokes the event.</summary>
+            <param name="Position">The position of the measurement.</param>
+            <param name="Direction">The direction of the probe when the measurement was taken.</param>
+            <param name="Mode">The mode in which the measurement was taken.</param>
+        </member>
+        <member name="M:VXelementsApi.VXprobe.SingleProbingMeasurementEventInvoker.#ctor(VXelementsApi.VXprobe.SingleProbingMeasurementEventHandler)">
+            <summary>Initializes a new instance of the class with the given <see cref="T:VXelementsApi.VXprobe.SingleProbingMeasurementEventHandler" />.</summary>
+            <param name="EventHandler">The delegate to attach to the event.</param>
+        </member>
+        <member name="E:VXelementsApi.VXprobe.SingleProbingMeasurementEventInvoker.Handler">
+            <summary>Occurs when the current invoker is called with <see cref="M:VXelementsApi.VXprobe.SingleProbingMeasurementEventInvoker.op_FunctionCall(VXelementsApi.Types.Point3dFloat,VXelementsApi.Types.Point3dFloat,VXelementsApi.VXprobe.MeasureMode)" />.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXprobe.SingleProbingMeasurementEventInvoker">
+            <summary>Represents a wrapper around a delegate to execute any method in managed code that is designed to handle a probe measurement.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXprobe.SingleProbingMeasurementEventHandler">
+            <summary>Represents the method to handle a probe measurement.</summary>
+            <param name="Position">The position of the measurement.</param>
+            <param name="Direction">The direction of the probe when the measurement was taken.</param>
+            <param name="Mode">The mode in which the measurement was taken.</param>
+        </member>
+        <member name="T:VXelementsApi.VXprobe.MeasureMode">
+            <summary>Specifies possible ways that a probe measurement was taken.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXprobe.MeasureMode.ScanPoint">
+            <summary>The measurement is taken from a scanner.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXprobe.MeasureMode.MultiShot">
+            <summary>The measurement is part of a continous chain of points.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXprobe.MeasureMode.SingleShot">
+            <summary>The measurement is a single point.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXprobe.NamespaceDoc">
+            <summary>The VXprobe namespace includes classes for interacting with the probing module in VXelements.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXscan.IVXscan.ExportSessionParameters(System.String)">
+            <summary>Exports the current session parameters to a file.</summary>
+            <param name="FileName">The name of the session parameters file. If <c>null</c>, a <see cref="T:System.Windows.Forms.SaveFileDialog" /> dialog box will pop up.</param>
+        </member>
+        <member name="M:VXelementsApi.VXscan.IVXscan.ImportSessionParameters(System.String)">
+            <summary>Imports a set of session parameters from a file.</summary>
+            <param name="FileName">The name of the session parameters file. If <c>null</c>, a <see cref="T:System.Windows.Forms.OpenFileDialog" /> dialog box will pop up.</param>
+            <remarks />
+        </member>
+        <member name="M:VXelementsApi.VXscan.IVXscan.ExportScannerConfiguration(System.String)">
+            <summary>Exports the current scanner configuration to a file.</summary>
+            <param name="FileName">The name of the scanner configuration file. If <c>null</c>, a <see cref="T:System.Windows.Forms.SaveFileDialog" /> dialog box will pop up.</param>
+        </member>
+        <member name="M:VXelementsApi.VXscan.IVXscan.ImportScannerConfiguration(System.String)">
+            <summary>Imports a scanner configuration from a file.</summary>
+            <param name="FileName">The name of the scanner configuration file. If <c>null</c>, a <see cref="T:System.Windows.Forms.OpenFileDialog" /> dialog box will pop up.</param>
+        </member>
+        <member name="M:VXelementsApi.VXscan.IVXscan.SaveTriangleModel(System.String,VXelementsApi.VXscan.FileFormat)">
+            <summary>Saves the triangle model to a file.</summary>
+            <param name="FileName">The name of the file that will be used to store the triangle model. If <c>null</c>, a <see cref="T:System.Windows.Forms.SaveFileDialog" /> dialog box will pop up.</param>
+            <param name="FileFormat">The file format used to store the triangle model.</param>
+            <remarks>
+                <para>This method will save the triangle model from the <see cref="P:VXelementsApi.VXscan.IVXscan.TriangleModel" /> property to a file.</para>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.VXscan.IVXscan.ShowScanWindow(System.Boolean)">
+            <summary>Shows the scanning window and optionally start the scan.</summary>
+            <param name="StartScanning">If <c>true</c>, the scanning process will start immediately.</param>
+            <remarks>
+                <para>This method starts the scanning process and opens the scanning window in the selected <see cref="P:VXelementsApi.VXscan.IVXscan.ScanMode" />.</para>
+                <note type="warning">The scanning process cannot run at the same time as the shooting process. It will start only when the shooting process is not active.</note>
+                <note type="warning">The scanning process will start only if the <see cref="P:VXelementsApi.VXscan.IVXscan.ScanMode">scan mode</see> is supported and enabled; otherwise, a message box will warn the user.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.VXscan.IVXscan.ShowScanWindow">
+            <summary>Shows the scan window.</summary>
+            <remarks>
+                <para>This method starts the scanning process and opens the scanning window in the selected <see cref="P:VXelementsApi.VXscan.IVXscan.ScanMode" />.</para>
+                <note type="warning">The scanning process cannot run at the same time as the shooting process. It will start only when the shooting process is not active.</note>
+                <note type="warning">The scanning process will start only if the <see cref="P:VXelementsApi.VXscan.IVXscan.ScanMode">scan mode</see> is supported and enabled; otherwise, a message box will warn the user.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.PointsModel">
+            <summary>Gets the points model of the current scan.</summary>
+            <value>An handle to the <see cref="T:VXelementsApi.VXscan.IPointsModel" /> object representing the latest accepted points model of the scan.</value>
+            <remarks>
+                <note>The property will be <c>null</c> when there is no points model available.</note>
+                <note type="warning">Direct usage of this property can be slow and should be avoided. Consult the API manual for further information.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.TriangleModel">
+            <summary>Gets the triangle model of the current scan.</summary>
+            <value>An handle to the <see cref="T:VXelementsApi.VXscan.ITriangleModel" /> object representing the latest accepted triangle model of the scan.</value>
+            <remarks>
+                <note>The property will be <c>null</c> when there is no triangle model available.</note>
+                <note type="warning">Direct usage of this property can be slow and should be avoided. Consult the API manual for further information.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.ScanMode">
+            <summary>Gets or sets the scan mode.</summary>
+            <value>One of the scan modes supported by the VXscan module.</value>
+            <remarks>
+                <note>The <see cref="M:VXelementsApi.VXscan.IVXscan.ShowScanWindow">scanning process</see> will start only when the mode is supported and enabled.</note>
+            </remarks>
+            <seealso cref="M:VXelementsApi.VXscan.IVXscan.ShowScanWindow" />
+            <seealso cref="P:VXelementsApi.VXscan.IVXscan.IsSurfaceScanSupported" />
+            <seealso cref="P:VXelementsApi.VXscan.IVXscan.SurfaceScanEnabled" />
+            <seealso cref="P:VXelementsApi.VXscan.IVXscan.IsPointScanSupported" />
+            <seealso cref="P:VXelementsApi.VXscan.IVXscan.PointScanEnabled" />
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.IsTextureSupported">
+            <summary>Gets a value indicating whether the VXscan module supports textures with the connected scanner.</summary>
+            <value>
+                <c>true</c> if the VXscan module can acquire texture with the connected scanner; otherwise, <c>false</c>.</value>
+            <remarks>
+                <note>The value of this property depends on the capabilities of the connected scanner.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.PointScanEnabled">
+            <summary>Gets or sets a value indicating the availability of point reconstruction to the connected plug-ins.</summary>
+            <value>
+                <c>true</c> if the reconstruction of a model as points is available to plug-ins; otherwise, <c>false</c>. The default is <c>false</c>.</value>
+            <remarks>
+                <para>
+		This property controls the availability of the point scan feature to the plug-ins. When set to <c>true</c>, point 
+		reconstruction is available to the client application and the scanning window; otherwise, the option will not be available 
+		in the scanning window and any operation requesting a surface will fail.
+	</para>
+                <note>
+		When the property is set to <c>false</c>, the <see cref="P:VXelementsApi.VXscan.IVXscan.ScanMode" /> property will automatically change to 
+		<see cref="T:VXelementsApi.VXscan.ScanMode">SurfaceScan</see> if the mode is <see cref="P:VXelementsApi.VXscan.IVXscan.SurfaceScanEnabled">enabled</see>.
+	</note>
+                <note type="warning">
+		 When <see cref="P:VXelementsApi.VXscan.IVXscan.IsPointScanSupported" /> is <c>false</c>, this property is <c>false</c> and cannot be changed.
+	</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.IsPointScanSupported">
+            <summary>Gets a value indicating whether the VXscan module supports the point reconstruction of a model with the connected scanner.</summary>
+            <value>
+                <c>true</c> if the VXscan module can reconstruct a scanned model as points with the connected scanner; otherwise, <c>false</c>.</value>
+            <remarks>
+                <note>The value of this property depends on the capabilities of the connected scanner.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.SurfaceScanEnabled">
+            <summary>Gets or sets a value indicating the availability of surface reconstruction to the connected plug-ins.</summary>
+            <value>
+                <c>true</c> if the reconstruction of a model as a surface is available to plug-ins; otherwise, <c>false</c>. The default is <c>true</c>.</value>
+            <remarks>
+                <para>
+		This property controls the availability of the surface scan feature to the plug-ins. When set to <c>true</c>, surface 
+		reconstruction is available to the client application and the scanning window; otherwise, the option will not be available 
+		in the scanning window and any operation requesting a surface will fail.
+	</para>
+                <note>
+		When the property is set to <c>false</c>, the <see cref="P:VXelementsApi.VXscan.IVXscan.ScanMode" /> property will automatically change to 
+		<see cref="T:VXelementsApi.VXscan.ScanMode">PointScan</see> if the mode is <see cref="P:VXelementsApi.VXscan.IVXscan.PointScanEnabled">enabled</see>.
+	</note>
+                <note type="warning">
+		 When <see cref="P:VXelementsApi.VXscan.IVXscan.IsSurfaceScanSupported" /> is <c>false</c>, this property is <c>false</c> and cannot be changed.
+	</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.IsSurfaceScanSupported">
+            <summary>Gets a value indicating whether the VXscan module supports the surface reconstruction of a model with the connected scanner.</summary>
+            <value>
+                <c>true</c> if the VXscan module can reconstruct a scanned model as a surface with the connected scanner; otherwise, <c>false</c>.</value>
+            <remarks>
+                <note>The value of this property depends on the capabilities of the connected scanner.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.IsScanAvailable">
+            <summary>Gets a value indicating the availability of scan data.</summary>
+            <value>
+                <c>true</c> if there is a valid scan available; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.IsScanningStarted">
+            <summary>Gets a value indicating the status of the scanning process.</summary>
+            <value>
+                <c>true</c> if the scanner is currently active; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.IsReadyToScan">
+            <summary>Gets a value indicating the status of the scanner.</summary>
+            <value>
+                <c>true</c> if the scanner is ready to acquire data; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.ScanChangedEvent">
+            <summary>Occurs when the scan has changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is triggered when the user accepts the scanned model in the scan window.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.ScanStoppedEvent">
+            <summary>Occurs when the scan is completed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is triggered when the scanning window is closed by the user, whether the scan has been accepted or canceled.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IVXscan.ScanStartedEvent">
+            <summary>Occurs when the scan is started.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="T:VXelementsApi.VXscan.IVXscan">
+            <summary>Manages the scanning process and dispatches events.</summary>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IPointsModel.Normal">
+            <summary>Gets the normals to the vertices of the points model.</summary>
+            <value>A 2D array of floating-point values representing each normal in the points model.</value>
+            <remarks>
+                <para>The first dimension represents the index of the normal in the points model. The second dimension represents the 3 components (i, j, k) of the normal.</para>
+                <para>A normal at a given index is associated to the <see cref="P:VXelementsApi.VXscan.IPointsModel.Vertex" /> of the same index.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.IPointsModel.Vertex">
+            <summary>Gets the vertices of the triangle model.</summary>
+            <value>A 2D array of floating-point values representing each vertex in the points model.</value>
+            <remarks>The first dimension represents the index of the vertex in the points model. The second dimension represents the 3 components (x, y, z) of the vertex.</remarks>
+        </member>
+        <member name="T:VXelementsApi.VXscan.IPointsModel">
+            <summary>Represents a scanned model as a point cloud.</summary>
+        </member>
+        <member name="P:VXelementsApi.VXscan.ITriangleModel.Texture">
+            <summary>Gets the texture associated to the model.</summary>
+            <value>A <see cref="T:System.Drawing.Bitmap" /> object representing the texture on the model.</value>
+            <remarks>
+                <note>The property will be <c>null</c> when texture is not supported or there is no texture available.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.ITriangleModel.TextureCoordinate">
+            <summary>Gets the texture coordinates to each triangle of the triangle model.</summary>
+            <value>A 2D array of floating-point values representing each texture coordinate in the triangle model.</value>
+            <remarks>
+                <para>The first dimension represents the index of the texture coordinate in the triangle model. The second dimension represents the 2 components (s, t) of the texture coordinate.</para>
+                <para>A texture coordinate at a given index is associated to the <see cref="P:VXelementsApi.VXscan.ITriangleModel.Triangles" /> of the same index.</para>
+                <note>The property will be <c>null</c> when texture is not supported or there is no texture available.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.ITriangleModel.Triangles">
+            <summary>Gets the triangles of the model.</summary>
+            <value>A 2D array of unsigned integers representing each triangle of the model.</value>
+            <remarks>The first dimension represents the index of the triangle in the model. The second dimension represents the 3 indexes of the <see cref="P:VXelementsApi.VXscan.ITriangleModel.Vertex">vertices</see> composing the triangle.</remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.ITriangleModel.Normal">
+            <summary>Gets the normals to the vertices of the triangle model.</summary>
+            <value>A 2D array of floating-point values representing each normal in the triangle model.</value>
+            <remarks>
+                <para>The first dimension represents the index of the normal in the triangle model. The second dimension represents the 3 components (i, j, k) of the normal.</para>
+                <para>A normal at a given index is associated to the <see cref="P:VXelementsApi.VXscan.ITriangleModel.Vertex" /> of the same index.</para>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.VXscan.ITriangleModel.Vertex">
+            <summary>Gets the vertices of the triangle model.</summary>
+            <value>A 2D array of floating-point values representing each vertex in the triangle model.</value>
+            <remarks>The first dimension represents the index of the vertex in the triangle model. The second dimension represents the 3 components (x, y, z) of the vertex.</remarks>
+        </member>
+        <member name="T:VXelementsApi.VXscan.ITriangleModel">
+            <summary>Represents a scanned model as a triangle model.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXscan.ScanMode">
+            <summary>Specifies the modes available for scanning and reconstructing a model.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.ScanMode.Points">
+            <summary>The scanned model will be reconstructed as points and will be available in a <see cref="T:VXelementsApi.VXscan.IPointsModel" />.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.ScanMode.Surface">
+            <summary>The scanned model will be reconstructed as a surface and will be available in a <see cref="T:VXelementsApi.VXscan.ITriangleModel" />.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXscan.FileFormat">
+            <summary>Specifies supported formats for saving a triangle model to a file.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.FbxAscii">
+            <summary>Autodesk FBX in ASCII text.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.FbxBinary">
+            <summary>Autodesk FBX in binary format.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.Collada">
+            <summary>COLLADA format.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.MayaAscii">
+            <summary>Maya in ASCII text.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.X3dAsciiSeparated">
+            <summary>X3D (Extensible 3D Graphics) with separate texture.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.X3dAsciiEmbedded">
+            <summary>X3D (Extensible 3D Graphics) with embed texture.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.X3dGzip">
+            <summary>X3D (Extensible 3D Graphics) compressed to gzip format.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.PlyBinary">
+            <summary>PLY (Polygon File Format) in binary format.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.PlyAscii">
+            <summary>PLY (Polygon File Format) in ASCII text.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.VrmlV2">
+            <summary>VRML97/VRML 2.0 format.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.VrmlV1">
+            <summary>VRML (Virtual Reality Modeling Language) format.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.Zpr">
+            <summary>ZPrint CAD format.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.Wavefront">
+            <summary>Wavefront OBJ format.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.Points3DFile">
+            <summary>Flat text file with 3D points.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.StlAscii">
+            <summary>STL (Standard Tessellation Language) in ASCII text.</summary>
+        </member>
+        <member name="F:VXelementsApi.VXscan.FileFormat.StlBinary">
+            <summary>STL (Standard Tessellation Language) in binary format.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXscan.NamespaceDoc">
+            <summary>The VXscan namespace includes classes for interacting with the scanning module in VXelements.</summary>
+        </member>
+        <member name="M:VXelementsApi.Types.ITypesFactory.CreatePose3d(System.Double[])">
+            <summary>Create a new 3D pose.</summary>
+            <param name="Pose">An array of floating-point values in double precision forming a 4x4 homogeneous matrix representing the pose.</param>
+        </member>
+        <member name="T:VXelementsApi.Types.ITypesFactory">
+            <summary>Provides method to create objects in the Types namespace.</summary>
+        </member>
+        <member name="M:VXelementsApi.Tracker.ITracker.ImportTargetsAndAlign(System.String)">
+            <summary>Loads the nominal of a model with positioning targets from a file and align on them.</summary>
+            <param name="FileName">The name of the file with the positioning targets nominal model. If <c>null</c>, a save file dialog box will be shown.</param>
+            <remarks>
+                <note>Loading a set of positioning targets will reset the current project, including the scan or any tracked entity.</note>
+            </remarks>
+        </member>
+        <member name="M:VXelementsApi.Tracker.ITracker.AutoDetectTargets">
+            <summary>Performs automatic target detection to create a rigid body.</summary>
+        </member>
+        <member name="M:VXelementsApi.Tracker.ITracker.DetectTargets">
+            <summary>Starts the detection of target for the dynamic referential.</summary>
+            <remarks>This method will display the VXelements interface to allow the detection targets.</remarks>
+        </member>
+        <member name="M:VXelementsApi.Tracker.ITracker.Calibrate">
+            <summary>Calibrates the C-Track or the C-Link network.</summary>
+            <remarks>
+                <para>This method starts the calibration process and shows the calibration window.</para>
+                <note>This method only works when the <see cref="P:VXelementsApi.Tracker.ITracker.IsReady">tracker is ready</see>.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.TrackerVolume">
+            <summary>The volume visible by the tracker.</summary>
+            <value>The volume in cubic meter.</value>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.ReferenceTargetCount">
+            <summary>Gets the total number of reference targets.</summary>
+            <value>Total number of reference targets.</value>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.ObservedReferenceTargetCount">
+            <summary>Gets the number of observed reference targets.</summary>
+            <value>Number of observed reference targets</value>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.ReferencingMode">
+            <summary>Gets or sets the referencing mode of the tracking system.</summary>
+            <value>One of the supported <see cref="T:VXelementsApi.Tracker.ReferencingMode">referencing mode</see>.</value>
+            <remarks>
+                <note type="warning">When setting the referencing mode, if the tracker cannot be set to the given mode, the operation will be silently ignored.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.TrackerPose">
+            <summary>Gets a value indicating the pose of the tracker in the current coordinate system.</summary>
+            <value>An <see cref="T:VXelementsApi.Types.IPose3d" /> object representing the pose of the calibration target.</value>
+            <remarks>
+                <para>This property returns the position and orientation of the latest valid observation of the tracker.</para>
+                <note>The property will be <c>null</c> when the pose is not available.</note>
+            </remarks>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.LastCalibrationDate">
+            <summary>Gets the date of the most recent tracker calibration.</summary>
+            <value>A <see cref="T:System.DateTime" /> value representing the date when the last calibration was done.</value>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.StatusColor">
+            <summary>Gets the tracker current status color.</summary>
+            <value>An <see cref="T:System.Drawing.Color" /> with an ARGB color value indicating the tracker status.</value>
+            <remarks>The status color will match those used by VXelements, e.g. green if everything is normal, yellow if there is a warning, red if there is an error, etc.</remarks>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.Status">
+            <summary>Gets a description of the current status of the tracker current status description.</summary>
+            <value>A string containing a description of the status of the tracker.</value>
+            <remarks>The description will match those used by VXelements, e.g. "Running", "No C-Track", etc.</remarks>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.DetectTargetStoppedEvent">
+            <summary>Occurs when the target detection is stopped.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.DetectTargetStartedEvent">
+            <summary>Occurs when the target detection is started.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.IsTrackerPoseAvailable">
+            <summary>Gets a value indicating the availability of the pose of the tracker in the current coordinate system.</summary>
+            <value>
+                <c>true</c> if the pose of the tracker is available; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.IsCalibrationPossible">
+            <summary>Gets the availability of the calibration process.</summary>
+            <value>
+                <c>true</c> if the C-Track or the C-Link network can be calibrated at the moment; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.IsReady">
+            <summary>Gets the status of the C-Track or the C-Link network.</summary>
+            <value>
+                <c>true</c> if the C-Track or the C-Link network is ready for operation; otherwise, <c>false</c>.</value>
+            <remarks>If the tracker is not ready, it will not be possible to start the tracking process, performing calibration or any operation related to the tracker.</remarks>
+        </member>
+        <member name="P:VXelementsApi.Tracker.ITracker.TrackerPoseChangedEvent">
+            <summary>Occurs when the position of the tracker in the current reference system has changed.</summary>
+            <value>A <see cref="T:VXelementsApi.VXevent" /> object that will notify attached methods.</value>
+            <remarks>
+                <para>This event is trigged when the position or the visibility of the calibration target has changed.</para>
+            </remarks>
+        </member>
+        <member name="T:VXelementsApi.Tracker.ITracker">
+            <summary>Provides functionalities specifically related to the C-Track or the C-Link network.</summary>
+            <remarks>Those functionalities include monitoring the tracker status, gathering the current positioning model, calibrating the tracker, displaying different forms related to the tracker, etc.</remarks>
+        </member>
+        <member name="T:VXelementsApi.Tracker.ReferencingMode">
+            <summary>Specifies the possible referencing modes of the tracking system.</summary>
+        </member>
+        <member name="F:VXelementsApi.Tracker.ReferencingMode.Automatic">
+            <summary>The reference system is automatically toggled between static and dynamic depending on the visibility of the positioning model at any given time.</summary>
+        </member>
+        <member name="F:VXelementsApi.Tracker.ReferencingMode.Dynamic">
+            <summary>The reference system is the positioning model, which is tracked dynamically.</summary>
+        </member>
+        <member name="F:VXelementsApi.Tracker.ReferencingMode.Static">
+            <summary>The reference system is a snapshot of the current positioning model.</summary>
+        </member>
+        <member name="F:VXelementsApi.Tracker.ReferencingMode.Sensor">
+            <summary>The reference system is the tracker itself.</summary>
+        </member>
+        <member name="T:VXelementsApi.Tracker.NamespaceDoc">
+            <summary>The Tracker namespace includes classes for interacting with the C-Track or the C-Link network.</summary>
+        </member>
+        <member name="M:VXelementsApi.Types.IPose3d.RotatePoint(VXelementsApi.Types.Point3dDouble@)">
+            <summary>Rotate a point or vector based on the pose.</summary>
+            <param name="PointToRotate">A <see cref="T:VXelementsApi.Types.Point3dDouble" /> object The point or vector to rotate.</param>
+            <returns>An <see cref="T:VXelementsApi.Types.Point3dDouble" /> object representing the rotated point or vector.</returns>
+        </member>
+        <member name="M:VXelementsApi.Types.IPose3d.InverseTransformPoint(VXelementsApi.Types.Point3dDouble@)">
+            <summary>Transforms a 3D point from the coordinate system of the pose.</summary>
+            <param name="PointToTransform">An <see cref="T:VXelementsApi.Types.Point3dDouble" /> object representing the point to transform.</param>
+            <returns>An <see cref="T:VXelementsApi.Types.Point3dDouble" /> object representing the transformed point.</returns>
+        </member>
+        <member name="M:VXelementsApi.Types.IPose3d.TransformPoint(VXelementsApi.Types.Point3dDouble@)">
+            <summary>Transforms a 3D point in the coordinate system of the pose.</summary>
+            <param name="PointToTransform">An <see cref="T:VXelementsApi.Types.Point3dDouble" /> object representing the point to transform.</param>
+            <returns>An <see cref="T:VXelementsApi.Types.Point3dDouble" /> object representing the transformed point.</returns>
+        </member>
+        <member name="P:VXelementsApi.Types.IPose3d.Valid">
+            <summary>Gets the validity status of the pose.</summary>
+            <value>
+                <c>true</c> if the pose is valid; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VXelementsApi.Types.IPose3d.Rotation">
+            <summary>Gets or sets a rotation.</summary>
+            <value>An <see cref="T:VXelementsApi.Types.Point3dDouble" /> object representing the Rx, Ry and Rz rotation values. Values are in degrees (°).</value>
+        </member>
+        <member name="P:VXelementsApi.Types.IPose3d.Translation">
+            <summary>Gets or sets a translation.</summary>
+            <value>An <see cref="T:VXelementsApi.Types.Point3dDouble" /> object representing the X, Y and Z translation values. Values are in millimeters (mm).</value>
+        </member>
+        <member name="P:VXelementsApi.Types.IPose3d.Pose">
+            <summary>Gets or sets a 3D pose.</summary>
+            <value>An array of floating-point values in double precision forming a 4x4 homogeneous matrix representing the pose.</value>
+        </member>
+        <member name="T:VXelementsApi.Types.IPose3d">
+            <summary>The IPose3d interface provides attributes related to 3D poses.</summary>
+        </member>
+        <member name="P:VXelementsApi.Types.IPositioningTargets.Code">
+            <summary>Gets the code of the coded targets. Zero for a simple target.</summary>
+        </member>
+        <member name="P:VXelementsApi.Types.IPositioningTargets.Normal">
+            <summary>Gets the normal of the positioning target.</summary>
+            <value>A <see cref="T:VXelementsApi.Types.Point3dFloat" /> object containing the i, j and k values of the normal unit vector.</value>
+            <exception cref="T:System.Exception">
+	Thrown when setting the normal of a coded target.
+</exception>
+        </member>
+        <member name="P:VXelementsApi.Types.IPositioningTargets.Center">
+            <summary>Gets the center of the positioning target.</summary>
+            <value>A <see cref="T:VXelementsApi.Types.Point3dFloat" /> object representing the 3D point which corresponds to the center of the target.</value>
+        </member>
+        <member name="T:VXelementsApi.Types.IPositioningTargets">
+            <summary>The IPositioningTargets interface provides attributes related to positioning targets.</summary>
+        </member>
+        <member name="P:VXelementsApi.Types.Point3dDouble.default(System.Int32)">
+            <summary>Gets the component associated to the index.</summary>
+            <value>An array of components making the 3D coordinate.</value>
+            <param name="Index">The index of the component. Values can be 0, 1 or 2.</param>
+        </member>
+        <member name="F:VXelementsApi.Types.Point3dDouble.Z">
+            <summary>The third component of the 3D coordinate.</summary>
+        </member>
+        <member name="F:VXelementsApi.Types.Point3dDouble.Y">
+            <summary>The second component of the 3D coordinate.</summary>
+        </member>
+        <member name="F:VXelementsApi.Types.Point3dDouble.X">
+            <summary>The first component of the 3D coordinate.</summary>
+        </member>
+        <member name="M:VXelementsApi.Types.Point3dDouble.#ctor(System.Double,System.Double,System.Double)">
+            <param name="pX">The value to assign to the first component of the 3D coordinate.</param>
+            <param name="pY">The value to assign to the second component of the 3D coordinate.</param>
+            <param name="pZ">The value to assign to the third component of the 3D coordinate.</param>
+        </member>
+        <member name="T:VXelementsApi.Types.Point3dDouble">
+            <summary>The Point3d class represents a point coordinate in the 3D space using floating-point components in double precision.</summary>
+        </member>
+        <member name="P:VXelementsApi.Types.Point3dFloat.default(System.Int32)">
+            <summary>Gets the component associated to the index.</summary>
+            <value>An array of components making the 3D coordinate.</value>
+            <param name="Index">The index of the component. Values can be 0, 1 or 2.</param>
+        </member>
+        <member name="F:VXelementsApi.Types.Point3dFloat.Z">
+            <summary>The third component of the 3D coordinate.</summary>
+        </member>
+        <member name="F:VXelementsApi.Types.Point3dFloat.Y">
+            <summary>The second component of the 3D coordinate.</summary>
+        </member>
+        <member name="F:VXelementsApi.Types.Point3dFloat.X">
+            <summary>The first component of the 3D coordinate.</summary>
+        </member>
+        <member name="M:VXelementsApi.Types.Point3dFloat.#ctor(System.Single,System.Single,System.Single)">
+            <param name="pX">The value to assign to the first component of the 3D coordinate.</param>
+            <param name="pY">The value to assign to the second component of the 3D coordinate.</param>
+            <param name="pZ">The value to assign to the third component of the 3D coordinate.</param>
+        </member>
+        <member name="T:VXelementsApi.Types.Point3dFloat">
+            <summary>The Point3d class represents a point coordinate in the 3D space using floating-point components in single precision.</summary>
+        </member>
+        <member name="T:VXelementsApi.Types.NamespaceDoc">
+            <summary>The Types namespace contains specialized data types used by VXelements.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXevent">
+            <summary>Represents an event in VXelementsApi that has no event data.</summary>
+            <remarks>
+                <note>Consult the API manual for more information on the custom event system.</note>
+            </remarks>
+            <seealso cref="T:VXelementsApi.VXeventInvoker" />
+        </member>
+        <member name="M:VXelementsApi.VXeventBase`1.RemoveEvent(`0)">
+            <summary>Removes the event from the invocation list.</summary>
+            <param name="Event">The event to detach from the invocation list.</param>
+        </member>
+        <member name="M:VXelementsApi.VXeventBase`1.AddEvent(`0)">
+            <summary>Adds the event to the invocation list.</summary>
+            <param name="Event">The event to attach to the invocation list.</param>
+        </member>
+        <member name="T:VXelementsApi.VXeventBase`1">
+            <summary>Represents the base class for the event system in VXelementsApi.</summary>
+            <typeparam name="E">The event invoker that will be used with the base class.</typeparam>
+            <remarks>For internal use.</remarks>
+        </member>
+        <member name="M:VXelementsApi.VXeventInvoker.InitializeLifetimeService">
+            <summary>Infrastructure. Obtains a lifetime service object to control the lifetime policy for this instance.</summary>
+            <remarks>Make sure the invoker will not be deleted on the stack by setting an infinite lifetime.</remarks>
+            <exclude />
+        </member>
+        <member name="M:VXelementsApi.VXeventInvoker.op_FunctionCall">
+            <summary>Invokes the event.</summary>
+        </member>
+        <member name="M:VXelementsApi.VXeventInvoker.#ctor(VXelementsApi.VXeventHandler)">
+            <summary>Initializes a new instance of the class with the given <see cref="T:VXelementsApi.VXeventHandler" />.</summary>
+            <param name="EventHandler">The delegate to attach to the event.</param>
+        </member>
+        <member name="E:VXelementsApi.VXeventInvoker.Handler">
+            <summary>Occurs when the invoker is called with <see cref="M:VXelementsApi.VXeventInvoker.op_FunctionCall" />.</summary>
+        </member>
+        <member name="T:VXelementsApi.VXeventInvoker">
+            <summary>Represents a wrapper around a delegate that can execute any method in managed code that is declared void and takes no parameters.</summary>
+            <remarks>
+                <para>
+		By design, VXelementsApi uses a custom event system for interface classes. The syntax is similar to the events and 
+		delegates system in the .NET framework.
+	</para>
+                <para>
+                    <see cref="T:VXelementsApi.VXeventInvoker" /> is a wrapper around a <see cref="T:VXelementsApi.VXeventHandler" /> delegate function. A <see cref="T:VXelementsApi.VXeventInvoker" /> object
+		can be attached to a <see cref="T:VXelementsApi.VXevent" /> event. When a <see cref="T:VXelementsApi.VXevent" /> is triggered, it will invoke the <see cref="T:VXelementsApi.VXeventInvoker" /> 
+		objects attached to the event; each <see cref="T:VXelementsApi.VXeventInvoker" /> will then invoke its associated <see cref="T:VXelementsApi.VXeventHandler" /> delegate.
+	</para>
+                <note>Consult the API manual for more information on the custom event system.</note>
+            </remarks>
+            <example>
+                <para>The following code examples demonstrates how to attach a <see cref="T:VXelementsApi.VXeventInvoker" /> object to a <see cref="T:VXelementsApi.VXevent" /> event of a <see cref="T:VXelementsApi.IVXprobe" /> object.</para>
+                <code lang="c++">
+		VXelementsApi::VXeventInvoker^ lpActiveProbeChangedEvent = gcnew VXelementsApi::VXeventInvoker(gcnew VXelementsApi::VXeventHandler(this, &amp;Class::Method));
+		VXelementsApi::ApiManager::VXelements-&gt;VXprobe-&gt;ActiveProbeChanged-&gt;AddEvent(lpActiveProbeChangedEvent);
+	</code>
+                <code lang="c#">
+		VXelementsApi.VXeventInvoke lpActiveProbeChangedEvent = new VXelementsApi.VXeventInvoker(new VXelementsApi.VXeventHandler(Class.Method));
+		VXelementsApi.ApiManager.VXelements.VXprobe.ActiveProbeChanged.AddEvent(lpActiveProbeChangedEvent);
+	</code>
+                <code lang="vbnet">
+		Dim lpActiveProbeChangedEvent As VXelementsApi.VXeventInvoker
+		lpActiveProbeChangedEvent = New VXelementsApi.VXeventInvoker(New VXelementsApi.VXeventHandler(AddressOf Class.Method))
+		VXelementsApi.ApiManager.VXelements.VXprobe.ActiveProbeChanged.AddEvent(lpActiveProbeChangedEvent)
+	</code>
+            </example>
+        </member>
+        <member name="T:VXelementsApi.VXeventHandler">
+            <summary>Represents the method that will handle an event that is declared void and takes no parameters.</summary>
+            <remarks>
+                <note>Consult the API manual for more information on the custom event system.</note>
+            </remarks>
+        </member>
+    </members>
+</doc>
